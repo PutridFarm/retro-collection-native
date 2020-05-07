@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 import logo from './logo.svg';
 import * as serviceWorker from './serviceWorker';
-import {gridListView} from './gridListView';
+import {gridListView} from './GridListView';
 import fire from './fire'; //firebase reference
 
 class App extends Component {
@@ -47,16 +47,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
-		{gridListView()}
-		<form onSubmit={this.addMessage.bind(this)}>
-			<input type="text" ref={ el => this.inputE1 = el }/>
-			<input type="submit"/>
-			<ul>
-				{ /*Render the list of messages */
-					this.state.messages.map( message => <li key={message.id}>{message.text}</li> )
-				}
-			</ul>
-		</form>
+		     {gridListView()}
       </div>
     );
   }

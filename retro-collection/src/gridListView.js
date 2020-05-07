@@ -9,7 +9,7 @@
 * @license     http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 import React, { Component } from 'react';
-import './gridListView.css';
+import './css/gridListView.css';
 
 const GridListViewContext = React.createContext()
 
@@ -30,7 +30,7 @@ class GridView extends React.Component {
     	isLoaded: false
     }
   }
-  
+
 	componentDidMount() {
     setTimeout(() => {
       this.setState({
@@ -38,7 +38,7 @@ class GridView extends React.Component {
       })
     },100)
   }
-  
+
 	render() {
     return (
       <div className={this.state.isLoaded ? "grid-list-view grid" : "grid-list-view grid loading"}>
@@ -46,8 +46,8 @@ class GridView extends React.Component {
           {(context) => (
             context.state.content.items.map(item => {
               return <div key={item.title} className="grid-item">
-                <h3>{item.title}</h3>
-                <p>{item.parent}</p>
+                //<h3>{item.title}</h3>
+                //<p>{item.parent}</p>
               </div>
             })
           )}
@@ -64,7 +64,7 @@ class ListView extends React.Component {
     	isLoaded: false
     }
   }
-  
+
 	componentDidMount() {
     setTimeout(() => {
       this.setState({
@@ -72,7 +72,7 @@ class ListView extends React.Component {
       })
     },100)
   }
-  
+
 	render() {
   	return (
       <GridListViewContext.Consumer>
@@ -163,11 +163,11 @@ class GridListView extends React.Component {
         handleViewChange: (e) => {
           const view = e.target.getAttribute('data-type')
           const isListView = view === 'grid' ? false : true
-          
+
           this.setState((prevState) => {
             return {
               listOptions: {
-                ...prevState.listOptions, 
+                ...prevState.listOptions,
                 isListView: isListView
               }
             }
@@ -183,17 +183,17 @@ class GridListView extends React.Component {
           },
           {
             title: 'Secret of Mana',
-            //parent: false
+            //parent: 'The Legend of Zelda'
           },
           {
             title: 'Super Metroid',
-            //parent: 'Archery'
+            //parent: 'Secret of Mana'
           }
         ]
       }
     }
   }
-  
+
 	render() {
   	return (
       <GridListViewProvider state={this.state}>

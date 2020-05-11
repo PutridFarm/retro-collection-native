@@ -1,0 +1,32 @@
+.menu, .games-content{
+  float: left;
+  margin-right:10px;
+  margin-top: 20px;
+}
+
+.games-content {
+  border: 1px solid #FFFFFF;
+  height: 150px;
+  width: 75%;
+  float: left;
+}
+
+ul.gamesNav li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+ul.gamesNav {
+  background-color: #111;
+  padding: 0;
+}
+ul.gamesNav li a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
+}
+ul.gamesNav :hover {
+  background: #56abf0;
+}

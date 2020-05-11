@@ -3,8 +3,17 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import logo from './logo.svg';
 import * as serviceWorker from './serviceWorker';
-import {gridListView} from './GridListView';
+import {listView} from './ListView';
 import fire from './fire'; //firebase reference
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
+import Games from "./Games";
+import Home from "./Home";
+import About from "./About";
+import GamesNav from "./GamesNav"
 
 class App extends Component {
 
@@ -32,23 +41,25 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-		     {gridListView()}
-      </div>
+      <HashRouter>
+        <div className="App">
+          <header className="App-header">
+            <h1>Retro-Collection</h1>
+            <img src={logo} className="App-logo" alt="logo" />
+          </header>
+          <ul className="nav">
+            <li><NavLink exact to="/">Home</NavLink></li>
+            <li><NavLink to="/games">Games</NavLink></li>
+            <li><NavLink to="/about">About</NavLink></li>
+          </ul>
+          <Route path="/games" component={GamesNav}/>
+          <div className="content">
+            <Route exact path="/" component={Home}/>
+            <Route path="/about" component={About}/>
+            <Route path="/games/snes" render={(props) => <Games consoleType="snes"/>}/>
+          </div>
+        </div>
+      </HashRouter>
     );
   }
 }

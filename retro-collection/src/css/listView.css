@@ -1,0 +1,76 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+  color: white;
+}
+
+.list-header {
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  margin: 0 5px;
+  padding: 7px 10px;
+  background: #2D333B;
+}
+
+.list-view {
+  opacity: 1;
+  transition: all 0.3s ease-in;
+  width: 250px;
+  border:  1px solid #FFFFFF;
+}
+
+.grid-list-view.loading {
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+.list-view.list {
+  margin-top: 10px;
+  border: 0px;
+  width: -webkit-fill-available;
+}
+
+.list-view.list thead td {
+  font-size: 18px;
+  border-bottom: 1px solid #2D333B;
+}
+
+.list-view.list thead td p {
+  display: inline-block;
+  margin-right: 10px;
+  text-transform: capitalize;
+}
+
+.list-view.list thead td i {
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.list-view.list thead td i:hover {
+  color: #0571D6;
+  transition: all 0.2s ease-in;
+}
+
+.list-view.list td {
+  padding: 0 20px;
+  border: 0px solid #2D333B;
+  text-align: left;
+  color: #D8D8D8;
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.list-view.list td:hover {
+  border: 0px solid #2D333B;
+  background: #2D333B;
+  color: #FFFFFF;
+}
+
+table
+{
+  padding: 0 10px;
+  border: 2px solid #2D333B;
+}

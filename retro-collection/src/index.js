@@ -13,8 +13,7 @@ import {
 import Games from "./Games";
 import Home from "./Home";
 import About from "./About";
-import GamesNav from "./GamesNav"
-
+import GamesNav from "./Games";
 class App extends Component {
 
   constructor(props)
@@ -52,11 +51,11 @@ class App extends Component {
             <li><NavLink to="/games">Games</NavLink></li>
             <li><NavLink to="/about">About</NavLink></li>
           </ul>
-          <Route path="/games" component={GamesNav}/>
+          {/*<Route path="/games" render={(props) => <GamesNav consoleId="/:id"/>}/>*/}
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/about" component={About}/>
-            <Route path="/games/snes" render={(props) => <Games consoleType="snes"/>}/>
+            <Route path="/games" component={Games}/>
           </div>
         </div>
       </HashRouter>

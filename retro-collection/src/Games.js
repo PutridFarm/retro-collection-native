@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import {listView} from './ListView';
+import React, { Component, useEffect } from "react";
+import ListView from './ListView';
 import './css/games.css';
 import {
   Route,
@@ -39,12 +39,42 @@ function GamesNav (props){
   );
  }
 
-function Console ({match})
+function Console ()
 {
+  useEffect(() => {
+
+  }, []);
+
+  const gamesList = [
+    {
+      id: 1,
+      title: 'The Legend of Zelda',
+      //parent: false						// parent is false if list item is top-level
+    },
+    {
+      id: 2,
+      title: 'Secret of Mana',
+      //parent: 'The Legend of Zelda'
+    },
+    {
+      id: 3,
+      title: 'Super Metroid',
+      //parent: 'Secret of Mana'
+    },
+    {
+      id: 4,
+      title: 'Super Mario World',
+      //parent: 'Secret of Mana'
+    }
+  ];
+
   return (
     <React.Fragment>
       <div className="menu">
-        {listView()}
+        <ListView
+          header="Collection"
+          items= {gamesList}
+        />
       </div>
       <div className="games-content">
         <p>
@@ -62,4 +92,5 @@ function Console ({match})
     </React.Fragment>
   );
 }
+
 export default Games;

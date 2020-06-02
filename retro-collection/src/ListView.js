@@ -6,27 +6,10 @@ class ListView extends React.Component {
   	super(props)
 		this.state = {
       content: {
-        header: 'Collection',
-        items: [
-          {
-						id: 1,
-            title: 'The Legend of Zelda',
-            //parent: false						// parent is false if list item is top-level
-          },
-          {
-						id: 2,
-            title: 'Secret of Mana',
-            //parent: 'The Legend of Zelda'
-          },
-          {
-						id: 3,
-            title: 'Super Metroid',
-            //parent: 'Secret of Mana'
-          }
-        ]
+        header: props.header,
+        items: props.items
       }
     }
-		const isBackgroundRed = true;
   }
 
 	render() {
@@ -57,11 +40,4 @@ class ListView extends React.Component {
   }
 }
 
-
-export const listView = (props) => {
-  return (
-    <ListView />
-  )
-}
-
-//ReactDOM.render(<App />, document.querySelector("#app"))
+export default ListView;

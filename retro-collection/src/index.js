@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import logo from './logo.svg';
 import * as serviceWorker from './serviceWorker';
-import {listView} from './ListView';
 import fire from './fire'; //firebase reference
 import {
   Route,
@@ -14,6 +13,7 @@ import Games from "./Games";
 import Home from "./Home";
 import About from "./About";
 import GamesNav from "./Games";
+
 class App extends Component {
 
   constructor(props)

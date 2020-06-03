@@ -1,0 +1,54 @@
+Creating a React App - https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+
+The React team primarily recommends these solutions:
+
+>If you’re learning React or creating a new single-page app, use Create React App - https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+>If you’re building a server-rendered website with Node.js, try Next.js - https://reactjs.org/docs/create-a-new-react-app.html#nextjs
+>If you’re building a static content-oriented website, try Gatsby - https://reactjs.org/docs/create-a-new-react-app.html#gatsby
+>If you’re building a component library or integrating with an existing codebase, try More Flexible Toolchains - https://reactjs.org/docs/create-a-new-react-app.html#more-flexible-toolchains
+
+
+== Local Development ==
+
+After setting up Node.js
+
+1. Launch Cygwin64 Terminal
+2. Navigate to C:/work/React - "cd C:/work/React"
+3. "cd my-app"
+4. npm start to start node.js and launch index.html
+5. electron . to start the app in a desktop application. Note - a node js server needs to be running
+
+=Firebase=
+- firebase login --interactive
+- firebase init
+
+=Build and Deploy=
+    npm install -g serve
+    serve -s build 
+Where build is the directory of the build file.
+
+Serve - used to start a built application locally.
+
+=== Web Server on RaspberryPi ===
+
+Starts webserver on default ip and can be hit from anywhere in the home network
+
+- sudo apt-get install nginx 
+- sudo nginx
+
+- ps -ef -A | grep node
+- kill 1234
+- pkill -f node
+
+
+== Test Components ==
+
+<form onSubmit={this.addMessage.bind(this)}>
+			<input type="text" ref={ el => this.inputE1 = el }/>
+			<input type="submit"/>
+			<ul>
+				{ //Render the list of messages
+					this.state.messages.map( message => <li key={message.id}>{message.text}</li> )
+				}
+			</ul>
+		</form>

@@ -1,19 +1,26 @@
 Back-end Development with python and flask
 
-install python3 - comes with pip
+    install python3 - comes with pip
 
-pip install pipenv
-pipenv install flask flask-sqlalchemy
+    pip install pipenv
+    pipenv install flask flask-sqlalchemy
 
-set FLASK_APP=api
-set FLASK_DEBUG=1
+    set FLASK_APP=api
+    set FLASK_DEBUG=1
 
-pipenv shell
-flask run
+    pipenv shell -- starts virtual environment to host server
+    flask run -- runs server for database
 
-python
->> from api.models import Movie
->> from api.models import db, create_app
->> db.create_all(app=create_app())
+Should say Running on "http://127.0.0.1:5000" or similar
 
-add sqlite3 to C:/sqlite3 and Environment Path Variable
+Creating new database:
+    python
+    >> from api.models import Movie
+    >> from api.models import db, create_app
+    >> db.create_all(app=create_app())
+
+Using Postman:
+    POST
+    http://127.0.0.1:5000/add_game
+    Body = {"title" : "Earthworm Jim"}, type JSON
+

@@ -1,0 +1,8 @@
+Create a C:/sqlite3 directory and place the zip file contents in that directory
+Add sqlite to PATH in environment variables
+
+
+
+== Commands ==
+Open sqlite3 interpretor for database - sqlite3 /api/database.db
+List all tables - .tables 

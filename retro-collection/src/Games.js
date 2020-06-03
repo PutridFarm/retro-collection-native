@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect , useState} from "react";
 import ListView from './ListView';
 import './css/games.css';
 import {
@@ -41,8 +41,14 @@ function GamesNav (props){
 
 function Console ()
 {
+  //const [gamesList, setGames] = useState([]);
+ const setGames = useState([]);
   useEffect(() => {
-
+    fetch("/games").then(response =>
+      response.json().then(data => {
+        setGames(data.games);
+      })
+    );
   }, []);
 
   const gamesList = [

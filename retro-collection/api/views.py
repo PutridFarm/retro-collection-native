@@ -16,7 +16,7 @@ def add_game():
 
 @main.route('/games') #entry point
 def games():
-    game_list = Game.query.all() #return a SQLAlchemy object
+    game_list = Game.query.filter_by(consoleId='SNES') #return a SQLAlchemy object
     games = []
 
     for game in game_list:

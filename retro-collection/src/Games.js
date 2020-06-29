@@ -1,10 +1,10 @@
 import React, { Component, useEffect , useState} from "react";
-import ListView from './ListView';
+import {ListView} from './ListView';
 import './css/games.css';
 import {
   Route,
   NavLink,
-  HashRouter,
+  useParams
 } from "react-router-dom";
 
 class Games extends Component {
@@ -12,13 +12,13 @@ class Games extends Component {
     super(props);
 
     this.state = {
-      isShow: true,
+      gamesList: [],
     };
   }
 
   render() {
     return (
-      <Route path="/games" render={(props) => <GamesNav consoleId="/:id"/>}/>
+      <Route path="/games" render={(props) => <GamesNav consoleId="/:consoleId"/>}/>
     );
   }
 }
@@ -31,7 +31,7 @@ function GamesNav (props){
        <li><NavLink to="/games/snes">SNES</NavLink></li>
        <li><NavLink to="/games/n64">N64</NavLink></li>
       </ul>
-      <Route path="/:id/:id" component={Console}/>
+      <Route path="/:id/:consoleId" component={Console}/>
       <Route exact path="/games">
         <p>Select a console to see a list of games! </p>
       </Route>
@@ -41,8 +41,9 @@ function GamesNav (props){
 
 function Console ()
 {
-  //const [gamesList, setGames] = useState([]);
- const setGames = useState([]);
+  let { consoleId } = useParams();
+  const [gamesList, setGames] = useState([]);
+
   useEffect(() => {
     fetch("/games").then(response =>
       response.json().then(data => {
@@ -51,28 +52,8 @@ function Console ()
     );
   }, []);
 
-  const gamesList = [
-    {
-      id: 1,
-      title: 'The Legend of Zelda',
-      //parent: false						// parent is false if list item is top-level
-    },
-    {
-      id: 2,
-      title: 'Secret of Mana',
-      //parent: 'The Legend of Zelda'
-    },
-    {
-      id: 3,
-      title: 'Super Metroid',
-      //parent: 'Secret of Mana'
-    },
-    {
-      id: 4,
-      title: 'Super Mario World',
-      //parent: 'Secret of Mana'
-    }
-  ];
+  console.log("ConsoleId =" + consoleId);
+  console.log(gamesList);
 
   return (
     <React.Fragment>

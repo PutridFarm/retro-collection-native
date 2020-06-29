@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import logo from './logo.svg';
 import * as serviceWorker from './serviceWorker';
-import fire from './fire'; //firebase reference
 import {
   Route,
   NavLink,
@@ -12,7 +11,6 @@ import {
 import Games from "./Games";
 import Home from "./Home";
 import About from "./About";
-import GamesNav from "./Games";
 
 class App extends Component {
 
@@ -20,22 +18,6 @@ class App extends Component {
   {
 	  super(props);
 	  this.state = { messages: [] }; // set up react state
-  }
-  componentWillMount()
-  {
-	  let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
-	  messagesRef.on('child_added', snapshot =>
-	  {
-		let message = { text: snapshot.val(), id: snapshot.key };
-		this.setState({ messages: [message].concat(this.state.messages) });
-	  })
-  }
-  addMessage(e)
-  {
-	  e.preventDefault(); //prevent form submit from reloading the page
-	  /* Send the message to Firebase */
-	  fire.database().ref('messages').push (this.inputE1.value );
-	  this.inputE1.value = ''; //clear the input
   }
 
   render() {

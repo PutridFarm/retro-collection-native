@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import {
   Route,
   NavLink,
-  HashRouter
+  BrowserRouter
 } from "react-router-dom";
 import Games from "./Games";
 import Home from "./Home";
@@ -22,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <div className="App">
           <header className="App-header">
             <h1>Retro-Collection</h1>
@@ -33,14 +33,13 @@ class App extends Component {
             <li><NavLink to="/games">Games</NavLink></li>
             <li><NavLink to="/about">About</NavLink></li>
           </ul>
-          {/*<Route path="/games" render={(props) => <GamesNav consoleId="/:id"/>}/>*/}
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/about" component={About}/>
             <Route path="/games" component={Games}/>
           </div>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }

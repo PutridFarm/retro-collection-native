@@ -3,11 +3,16 @@ import {ListView} from './ListView';
 import './css/games.css';
 import {
   Route,
-  NavLink,
-  useParams
+  NavLink
 } from "react-router-dom";
 
-class Games extends Component {
+function Games(){
+    return (
+      <Route path="/games" component= {GamesNav}/>
+    );
+}
+
+class GamesNav extends Component {
   constructor(props) {
     super(props);
 
@@ -18,41 +23,37 @@ class Games extends Component {
 
   render() {
     return (
-      <Route path="/games" render={(props) => <GamesNav consoleId="/:consoleId"/>}/>
+      <React.Fragment>
+        <ul className="gamesNav">
+         <li><NavLink exact to="/games/nes">NES</NavLink></li>
+         <li><NavLink to="/games/snes">SNES</NavLink></li>
+         <li><NavLink to="/games/n64">N64</NavLink></li>
+        </ul>
+        <Route path="/games/nes" render={() => <Console consoleId="nes"/>}/>
+        <Route path="/games/snes" render={() => <Console consoleId="snes"/>}/>
+        <Route exact path="/games">
+          <p>Select a console to see a list of games! </p>
+        </Route>
+     </React.Fragment>
     );
   }
 }
 
-function GamesNav (props){
-  return (
-    <React.Fragment>
-      <ul className="gamesNav">
-       <li><NavLink exact to="/games/nes">NES</NavLink></li>
-       <li><NavLink to="/games/snes">SNES</NavLink></li>
-       <li><NavLink to="/games/n64">N64</NavLink></li>
-      </ul>
-      <Route path="/:id/:consoleId" component={Console}/>
-      <Route exact path="/games">
-        <p>Select a console to see a list of games! </p>
-      </Route>
-   </React.Fragment>
-  );
- }
-
-function Console ()
-{
-  let { consoleId } = useParams();
+function Console (props){
   const [gamesList, setGames] = useState([]);
 
   useEffect(() => {
-    fetch("/games").then(response =>
+    fetch("/games/" + (props.consoleId)).then(response =>
       response.json().then(data => {
         setGames(data.games);
       })
-    );
+    )
+    .catch(error=>{
+      console.log(error)
+    });
   }, []);
 
-  console.log("ConsoleId =" + consoleId);
+  console.log("ConsoleId = " + (props.consoleId));
   console.log(gamesList);
 
   return (

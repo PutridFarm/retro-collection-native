@@ -17,6 +17,19 @@ After setting up Node.js
 3. "cd my-app"
 4. npm start to start node.js and launch index.html
 5. electron . to start the app in a desktop application. Note - a node js server needs to be running
+===================
+
+== Script to automatically start React and Flask app ==
+
+@ECHO OFF
+ECHO Starting retro-collection...
+cd "C:\work\React\galactic-core\retro-collection"
+start cmd.exe /k "npm start"
+cd api
+pipenv run flask run
+PAUSE
+
+===================
 
 =Firebase=
 - firebase login --interactive
@@ -28,6 +41,8 @@ After setting up Node.js
 Where build is the directory of the build file.
 
 Serve - used to start a built application locally.
+
+===================
 
 === Web Server on RaspberryPi ===
 

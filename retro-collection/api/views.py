@@ -8,7 +8,7 @@ main = Blueprint('main', __name__)
 def add_game():
     game_data = request.get_json()
 
-    new_game = Game(title=game_data['title'])
+    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'])
 
     db.session.add(new_game)
     db.session.commit()

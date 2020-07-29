@@ -2,12 +2,7 @@ import React from 'react';
 import '../css/listView.css';
 
 
-export const ListView = ({ header, items, button }) => {
-
-	function getContent()
-	{
-		console.log("getting content!");
-	}
+export const ListView = ({ header, items, button , onClickEvent}) => {
 
 	return (
 				<React.Fragment>
@@ -21,7 +16,7 @@ export const ListView = ({ header, items, button }) => {
 								{
 									items.map(item => {
 										return (
-											<tr key={item.id} onClick={() => {getContent()}}>
+											<tr key={item.id} onClick={onClickEvent}>
 												<td>
 													<p>{item.title}</p>
 												</td>

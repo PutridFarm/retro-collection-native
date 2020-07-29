@@ -8,8 +8,9 @@ main = Blueprint('main', __name__)
 def add_game():
     game_data = request.get_json()
 
+    print("games[post] title = ", game_data['title'] ,"consoleId = ", game_data['consoleId'])
     #process data, check valid console id
-    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'])
+    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'].upper())
 
     db.session.add(new_game)
     db.session.commit()

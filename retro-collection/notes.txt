@@ -19,6 +19,10 @@ After setting up Node.js
 5. electron . to start the app in a desktop application. Note - a node js server needs to be running
 ===================
 
+=== Lessons Learned/Pain Points ===
+
+== Modal Dialog ==
+
 == Script to automatically start React and Flask app ==
 
 @ECHO OFF
@@ -30,6 +34,8 @@ pipenv run flask run
 PAUSE
 
 ===================
+
+======================================
 
 =Firebase=
 - firebase login --interactive

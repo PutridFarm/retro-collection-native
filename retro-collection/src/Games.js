@@ -1,10 +1,11 @@
 import React, { Component, useEffect , useState} from "react";
-import {ListView} from './ListView';
+import {ListView} from './components/ListView';
 import './css/games.css';
 import {
   Route,
   NavLink
 } from "react-router-dom";
+import {GameForm} from './components/GameForm';
 
 function Games(){
     return (
@@ -17,7 +18,7 @@ class GamesNav extends Component {
     super(props);
 
     this.state = {
-      gamesList: [],
+      message: "Here's information on all the console games!"
     };
   }
 
@@ -41,9 +42,9 @@ class GamesNav extends Component {
 
 function Console (props){
   const [gamesList, setGames] = useState([]);
-
+  const consoleId = (props.consoleId);
   useEffect(() => {
-    fetch("/games/" + (props.consoleId)).then(response =>
+    fetch("/games/" + consoleId).then(response =>
       response.json().then(data => {
         setGames(data.games);
       })
@@ -53,29 +54,20 @@ function Console (props){
     });
   }, []);
 
-  console.log("ConsoleId = " + (props.consoleId));
+  console.log("ConsoleId = " + consoleId);
   console.log(gamesList);
-
   return (
     <React.Fragment>
       <div className="menu">
         <ListView
           header="Collection"
           items= {gamesList}
+          button=<GameForm consoleContext={consoleId}/>
         />
       </div>
       <div className="games-content">
         <p>
-          Here's information on all the console games!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </div>
     </React.Fragment>
   );

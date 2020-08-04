@@ -16,7 +16,7 @@ export const ListView = ({ header, items, button , onClickEvent}) => {
 								{
 									items.map(item => {
 										return (
-											<tr key={item.id} onClick={onClickEvent}>
+											<tr key={item.id} onClick={()=>onClickEvent(item)}>
 												<td>
 													<p>{item.title}</p>
 												</td>

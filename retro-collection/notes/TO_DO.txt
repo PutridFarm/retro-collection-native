@@ -1,0 +1,8 @@
+TO DO:
+ 1. ENUM to specify console types. Dynamic routing through console
+ 2. Utils library for reads/common functions
+ 3. Lazy load text when selecting game. Avoid reading too much information on console page load.
+    In Content.updateContent(), read the items text and other heavy attributes (picture...etc)
+
+    Thinking of setting up read functions that lazy load all attributes passed in.
+    Might be a little overkill for this project but might be worth looking into at some point

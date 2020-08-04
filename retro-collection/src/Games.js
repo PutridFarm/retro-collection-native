@@ -4,7 +4,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import {Content} from './components/Content';
+import Content from './components/Content';
 
 function Games(){
     return (

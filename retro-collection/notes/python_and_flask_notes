@@ -22,6 +22,7 @@ Creating new database:
     >> from api.models import db, create_app
     >> db.create_all(app=create_app())
 
+    
 Using Postman:
     POST
     http://127.0.0.1:5000/add_game

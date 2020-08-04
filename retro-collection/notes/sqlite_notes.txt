@@ -5,4 +5,7 @@ Add sqlite to PATH in environment variables
 
 == Commands ==
 Open sqlite3 interpretor for database - sqlite3 /api/database.db
-List all tables - .tables 
+List all tables - .tables
+
+SQL To Add Column:
+    alter table game add column text TEXT DEFAULT ""

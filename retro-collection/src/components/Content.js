@@ -1,6 +1,7 @@
 import React, { Component, useEffect , useState} from "react";
 import {GameForm} from './GameForm';
-import {ListView} from './ListView';
+import {GameFormEdit} from './GameFormEdit';
+import ListView from './ListView';
 
 class Content extends Component{
 
@@ -28,6 +29,7 @@ class Content extends Component{
           </h1>
           <p>
             {this.state.currentItem.text}
+            <GameFormEdit gameContext={this.state.currentItem}/>
           </p>
         </div>
       </React.Fragment>

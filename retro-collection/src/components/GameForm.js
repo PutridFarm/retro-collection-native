@@ -1,12 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Form, Input, Button, Modal, Header} from "semantic-ui-react";
 import '../css/GameForm.css';
 
 export const GameForm = ({consoleContext}) => {
 
     const [title, setTitle] = useState("");
-    const [consoleId, setConsoleId] = useState("");
+    const [consoleId, setConsoleId] = useState(consoleContext);
     const [modalOpen, setModalOpen] = useState(false);
+
+    useEffect (() => {
+      setConsoleId(consoleContext)
+    }, [consoleContext])
+
     const consoleOptions = [
       {
         key: 'nes',

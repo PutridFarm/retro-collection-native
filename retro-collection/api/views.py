@@ -8,11 +8,34 @@ main = Blueprint('main', __name__)
 def add_game():
     game_data = request.get_json()
 
-    print("games[post] title = ", game_data['title'] ,"consoleId = ", game_data['consoleId'])
-    #process data, check valid console id
-    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'].upper(), text=game_data['text'])
+    print("add_game[post] title = ", game_data['title'] ,"consoleId = ", game_data['consoleId'])
+    #process data, TO DO: check valid console id
+    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'].upper(), text="")
 
     db.session.add(new_game)
+    db.session.commit()
+    return 'Done', 201
+
+@main.route('/update_game', methods=['POST']) #entry point
+def update_game():
+    game_data = request.get_json()
+    print("update_game[post] id= ", game_data['id'], "title = ", game_data['title'] ,"consoleId = ", game_data['consoleId'], "text = ", game_data['text'])
+
+    game_record = Game.query.filter_by(id=game_data['id']).first() #return a SQLAlchemy object
+    game_record.title = game_data['title']
+    game_record.text = game_data['text']
+
+    db.session.commit()
+    return 'Done', 201
+
+@main.route('/delete_game', methods=['POST']) #entry point
+def delete_game():
+    game_data = request.get_json()
+    print("delete_game[post] id= ", game_data['id'])
+
+    game_record = Game.query.filter_by(id=game_data['id']).first() #return a SQLAlchemy object
+
+    db.session.delete(game_record)
     db.session.commit()
     return 'Done', 201
 
@@ -32,7 +55,7 @@ def games(consoleId):
 @main.route('/games/<consoleId>?game=<gameId>', methods=["GET"]) #entry point
 def game(gameId):
 
-    print("games[get] gameId = ", gameId.upper())
+    print("game[get] gameId = ", gameId.upper())
     game_record = Game.query.filter_by(id=gameId).first() #return a SQLAlchemy object
     game = {'id' : game_record.id, 'title' : game_record.title, 'consoleId' : game_record.consoleId, 'text' : game_record.text}
 

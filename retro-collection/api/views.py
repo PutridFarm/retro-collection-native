@@ -53,10 +53,17 @@ def games(consoleId):
 
 #ExampleURL: /games/snes?game=1. Used as a heavy read to return more information
 @main.route('/games/<consoleId>?game=<gameId>', methods=["GET"]) #entry point
-def game(gameId):
+def game(consoleId, gameId):
 
     print("game[get] gameId = ", gameId.upper())
     game_record = Game.query.filter_by(id=gameId).first() #return a SQLAlchemy object
     game = {'id' : game_record.id, 'title' : game_record.title, 'consoleId' : game_record.consoleId, 'text' : game_record.text}
 
     return jsonify({'game' : game})
+
+
+@main.route('/games/<consoleId>/current-price', methods=["GET"]) #entry point
+def currentPrice(consoleId):
+    gameTitle = request.args.get('game', default = "", type = str)
+    print("/games/<consoleId>/current-price gameTitle=", gameTitle)
+    return jsonify({'price': 20.00})

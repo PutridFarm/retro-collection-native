@@ -1,0 +1,20 @@
+Running a main python script in PyCharm:
+
+You just need to do this.
+
+Create a Python file on crawler folder on your project. I used main.py.
+
+Project
+  Crawler
+    Crawler
+      Spiders
+      ...
+    main.py
+    scrapy.cfg
+Inside your main.py put this code below.
+
+from scrapy import cmdline
+cmdline.execute("scrapy crawl spider".split())
+And you need to create a "Run Configuration" to run your main.py.
+
+Doing this, if you put a breakpoint at your code it will stop there.

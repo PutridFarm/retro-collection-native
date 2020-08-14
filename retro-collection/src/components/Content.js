@@ -7,14 +7,28 @@ class Content extends Component{
 
   constructor(props) {
     super(props);
-    this.state = {currentItem: {}};
+    this.state = {currentItem: {}, currentPrice: 0.0};
     this.updateContent = this.updateContent.bind(this);
   }
 
   updateContent (item) {
     this.setState({currentItem: item});
+    this.fetchPrice(item);
     console.log("item was clicked: " + item.title);
+  }
 
+ //"/games/" + item.consoleId.toLowerCase() + "/current-price?game=" + item.title
+  fetchPrice = (item) => {
+   fetch('/games/snes/current-price?game=' + item.title)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      this.setState({ currentPrice: data.price});
+    })
+    .catch(error=>{
+      console.log(error)
+    })
   }
 
   render(){
@@ -27,14 +41,27 @@ class Content extends Component{
           <h1>
             {this.state.currentItem.title}
           </h1>
-          <p>
+          <div>
             {this.state.currentItem.text}
             <GameFormEdit gameContext={this.state.currentItem}/>
-          </p>
+            {this.state.currentPrice}
+          </div>
         </div>
       </React.Fragment>
     );
   }
+}
+
+function CurrentPrice(props)
+{
+  const [currentPrice, setCurrentPrice] = useState([]);
+  const gameTitle = props.game.title
+
+  console.log("CurrentPrice gameTitle = " + gameTitle);
+  console.log("CurrentPrice consoleId = " + props.game.consoleId);
+
+
+  return (<div></div>);
 }
 
 function GameMenu (props){

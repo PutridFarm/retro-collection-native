@@ -8,11 +8,11 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = 'FALSE'
-    
+
     db.init_app(app)
 
     from .views import main
 
     app.register_blueprint(main)
-
+    
     return app

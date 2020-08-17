@@ -7,7 +7,7 @@ class Content extends Component{
 
   constructor(props) {
     super(props);
-    this.state = {currentItem: {}, currentPrice: 0.0};
+    this.state = {currentItem: {}, currentPrice: 0.0, consoleList:props.consoleList};
     this.updateContent = this.updateContent.bind(this);
   }
 
@@ -35,7 +35,7 @@ class Content extends Component{
     return (
       <React.Fragment>
         <div className="menu">
-          <GameMenu consoleId={this.props.consoleId} onClickEvent={this.updateContent}/>
+          <GameMenu consoleId={this.props.consoleId} onClickEvent={this.updateContent} consoleList={this.state.consoleList}/>
         </div>
         <div className="games-content">
           <h1>
@@ -43,7 +43,7 @@ class Content extends Component{
           </h1>
           <div>
             {this.state.currentItem.text}
-            <GameFormEdit gameContext={this.state.currentItem}/>
+            <GameFormEdit gameContext={this.state.currentItem} consoleList={this.state.consoleList}/>
             {this.state.currentPrice}
           </div>
         </div>
@@ -85,7 +85,7 @@ function GameMenu (props){
     <ListView
         header="Collection"
         items= {gamesList}
-        button=<GameForm consoleContext={consoleId}/>
+        button=<GameForm consoleContext={consoleId} consoleList={props.consoleList}/>
         onClickEvent={props.onClickEvent}
     />
   );

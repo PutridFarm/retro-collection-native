@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import logo from './logo.svg';
@@ -14,10 +14,27 @@ import About from "./About";
 
 class App extends Component {
 
-  constructor(props)
-  {
-	  super(props);
-	  this.state = { messages: [] }; // set up react state
+  constructor(props) {
+    super(props);
+    this.state = {consoleList: []};
+    this.fetchConsoleList = this.fetchConsoleList.bind(this);
+  }
+
+  componentDidMount(){
+    this.fetchConsoleList();
+  }
+
+  fetchConsoleList() {
+    fetch('/consoles')
+     .then(response => {
+       return response.json()
+     })
+     .then(data => {
+       this.setState({ consoleList: data.consoles});
+     })
+     .catch(error=>{
+       console.log(error)
+     })
   }
 
   render() {
@@ -36,7 +53,7 @@ class App extends Component {
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/about" component={About}/>
-            <Route path="/games" component={Games}/>
+            <Route path="/games" render={() => <Games consoleList={this.state.consoleList}/>}/>
           </div>
         </div>
       </BrowserRouter>

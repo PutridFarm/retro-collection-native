@@ -16,10 +16,12 @@ Back-end Development with python and flask
 
 Should say Running on "http://127.0.0.1:5000" or similar
 
-Creating new database:
+Creating new database/add new table:
+    /project
+    pipenv shell
     python
     >> from api.models import Movie
-    >> from api.models import db, create_app
+    >> from api import db, create_app
     >> db.create_all(app=create_app())
 
     

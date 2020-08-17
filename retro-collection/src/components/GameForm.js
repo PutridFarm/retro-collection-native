@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Form, Input, Button, Modal, Header} from "semantic-ui-react";
 import '../css/GameForm.css';
 
-export const GameForm = ({consoleContext}) => {
+export const GameForm = ({consoleContext, consoleList}) => {
 
     const [title, setTitle] = useState("");
     const [consoleId, setConsoleId] = useState(consoleContext);
@@ -12,23 +12,7 @@ export const GameForm = ({consoleContext}) => {
       setConsoleId(consoleContext)
     }, [consoleContext])
 
-    const consoleOptions = [
-      {
-        key: 'nes',
-        text: 'NES',
-        value: 'nes'
-      },
-      {
-        key: 'snes',
-        text: 'SNES',
-        value: 'snes'
-      },
-      {
-        key: 'n64',
-        text: 'N64',
-        value: 'n64'
-      }
-    ]
+    const consoleOptions = consoleList
     console.log("consoleContext:" + consoleContext);
     return (
       <Modal
@@ -56,8 +40,8 @@ export const GameForm = ({consoleContext}) => {
                 {
                   consoleOptions.map(item => {
                     return (
-                      <option key={item.key} value={item.value}>
-                        {item.text}
+                      <option key={item.id} value={item.id}>
+                        {item.id}
                       </option>
                     )
                   })

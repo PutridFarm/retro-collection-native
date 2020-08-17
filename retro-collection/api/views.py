@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from . import db
 from .models import Game
+from .models import Console
+#from .crawler.crawler.spiders.games import GamesSpider
 
 main = Blueprint('main', __name__)
 
@@ -66,4 +68,17 @@ def game(consoleId, gameId):
 def currentPrice(consoleId):
     gameTitle = request.args.get('game', default = "", type = str)
     print("/games/<consoleId>/current-price gameTitle=", gameTitle)
+
+    #GamesSpider.run()
+
     return jsonify({'price': 20.00})
+
+@main.route('/consoles', methods=["GET"]) #entry point
+def consoles():
+    console_list = Console.query.filter_by(active=True) #return a SQLAlchemy object
+    consoles = []
+
+    for console in console_list:
+        consoles.append({'id' : console.id, 'name' : console.name})
+
+    return jsonify({'consoles' : consoles})

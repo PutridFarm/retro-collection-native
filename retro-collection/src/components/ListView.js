@@ -52,6 +52,17 @@ class ListView extends Component {
 };
 
 function ListItem(props) {
+	return (
+		<React.Fragment>
+			<div className="list-item">
+				{props.item.title}
+				<DeleteButton hoverItem={props.hoverItem} item={props.item}/>
+			</div>
+		</React.Fragment>
+	)
+}
+
+function DeleteButton(props) {
 	const [open, setOpen] = useState(false);
 	const [result, setResult] = useState('');
 
@@ -96,9 +107,10 @@ function ListItem(props) {
 								/>
 						</React.Fragment>
 	}
+
 	return (
 		<React.Fragment>
-			<div>{props.item.title}{button}</div>
+			{button}
 		</React.Fragment>
 	)
 }

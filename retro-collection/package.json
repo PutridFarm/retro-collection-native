@@ -4,8 +4,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^7.14.6",
-    "firebase-admin": "^7.0.0",
     "flask": "^0.2.10",
     "http2": "^3.3.7",
     "react": "^16.13.1",

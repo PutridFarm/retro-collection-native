@@ -22,7 +22,6 @@ class ListView extends Component {
 	}
 
 	render () {
-		const selectedItem = this.state.selected;
 		return (
 					<React.Fragment>
 						<div className="list-view">
@@ -64,7 +63,6 @@ function ListItem(props) {
 
 function DeleteButton(props) {
 	const [open, setOpen] = useState(false);
-	const [result, setResult] = useState('');
 
 	function show(){
 		setOpen(true)
@@ -72,7 +70,6 @@ function DeleteButton(props) {
 
 	async function handleConfirm(){
 		setOpen(false)
-		setResult('confirmed')
 
     const response = await fetch('/delete_game', {
         method: 'POST',
@@ -89,11 +86,10 @@ function DeleteButton(props) {
 
 	function handleCancel(){
 		setOpen(false)
-		setResult('cancelled')
 	}
 
 	let button;
-	if(props.hoverItem == props.item) {
+	if(props.hoverItem === props.item) {
 		const message = "Are you sure you want to delete " + props.item.title +"?"
 		button = <React.Fragment>
 								<Button circular onClick={show}>-</Button>

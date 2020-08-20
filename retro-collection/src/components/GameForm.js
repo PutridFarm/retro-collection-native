@@ -13,7 +13,7 @@ export const GameForm = ({consoleContext, consoleList}) => {
     }, [consoleContext])
 
     const consoleOptions = consoleList
-    console.log("consoleContext:" + consoleContext);
+
     return (
       <Modal
         trigger={<Button circular onClick={() => setModalOpen(true)}>+</Button>}

@@ -16,7 +16,6 @@ export const GameFormEdit = ({gameContext}) => {
       setGame({...game, [name]: value})
     }
 
-    console.log("GAME CONTEXT title: " + gameContext.title + " id: " + gameContext.id)
     return (
       <Modal
         trigger={<Button circular onClick={() => setModalOpen(true)}>*</Button>}
@@ -51,7 +50,7 @@ export const GameFormEdit = ({gameContext}) => {
                   },
                   body: JSON.stringify(game)
                 })
-                
+
                 if (response.ok) {
                   console.log('response from /update_game!');
                   setModalOpen(false);

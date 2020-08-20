@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import logo from './logo.svg';

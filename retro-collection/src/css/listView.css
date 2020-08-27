@@ -17,7 +17,7 @@ body {
 .list-view {
   opacity: 1;
   transition: all 0.3s ease-in;
-  width: 250px;
+  width: -webkit-fill-available;
   border:  1px solid #FFFFFF;
 }
 

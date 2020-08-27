@@ -1,0 +1,9 @@
+https://stackoverflow.com/questions/52237855/support-for-the-experimental-syntax-classproperties-isnt-currently-enabled
+
+Had a hard time configuring babel to work with the React-Native-Drawer module
+
+Need to have babel.config.js in the root project directory.
+In node_modules/react-scriots/config/webpack.config.js
+
+Removed preset and plugin parameters from babel-loader.
+Set configFile=true, babelrc=false

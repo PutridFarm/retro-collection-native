@@ -2,7 +2,6 @@ import React, {Component, useState} from 'react';
 import {Button, Confirm} from 'semantic-ui-react';
 import '../css/listView.css';
 
-
 class ListView extends Component {
 
 	constructor(props) {

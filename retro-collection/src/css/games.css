@@ -1,14 +1,10 @@
-.menu, .games-content{
-  float: left;
-  margin-right:10px;
+.menu {
   margin-top: 20px;
 }
 
 .games-content {
   border: 1px solid #FFFFFF;
   height: 150px;
-  width: 75%;
-  float: left;
 }
 
 ul.gamesNav li {
@@ -49,6 +45,7 @@ ul.gamesNav :hover {
   position: relative;
   display: inline-block;
   margin-bottom: 10px;
+  -webkit-transition: padding 2s;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -78,6 +75,7 @@ ul.gamesNav :hover {
 /* Show the dropdown menu on hover */
 .console-list-dropdown:hover .console-list-dropdown-content {
   display: block;
+  -webkit-transition: border-radius 2s;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */

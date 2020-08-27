@@ -53,13 +53,14 @@ code {
 }
 
 ul.nav li {
-  display: inline;
   list-style-type: none;
   margin: 0;
+  border:3px solid #0000FF;
 }
 ul.nav {
   background-color: #111;
   padding: 0;
+  width: 0;
 }
 ul.nav li a {
   color: #FFF;
@@ -67,6 +68,8 @@ ul.nav li a {
   text-decoration: none;
   padding: 20px;
   display: inline-block;
+  background-color: #000000;
+  border:3px solid #FF00FF;
 }
 ul.nav :hover {
   background: #56abf0;
@@ -77,8 +80,6 @@ ul.nav :hover {
 }
 
 .content {
-  /*border:3px solid #000055;*/
-  width: 75%;
   height: 250px;
   margin: auto;
 }
@@ -94,4 +95,34 @@ ul.nav :hover {
 .ui.circular.button:hover {
   background-color:#cacbcd;
   background-image:none;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}*/
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Style The Dropdown Button */
+.hambtn {
+  background-color: #282c34;
+  font-weight: bold;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #56abf0;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 0px;
 }

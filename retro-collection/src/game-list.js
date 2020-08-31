@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {FlatList, Pressable, Text, StyleSheet} from "react-native";
 
 const GameList = ({games, onPress, style}) => {

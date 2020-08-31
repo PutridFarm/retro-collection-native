@@ -1,6 +1,5 @@
 import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet, Pressable, Image} from 'react-native';
-import hamburger_icon from './images/svg/Hamburger_icon.svg';
 
 const Header = ({ onBack, title, onIconPress}) => (
   <SafeAreaView style={styles.headerContainer}>

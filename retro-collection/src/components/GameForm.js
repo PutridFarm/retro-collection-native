@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Form, Input, Button, Modal, Header} from "semantic-ui-react";
 import '../css/GameForm.css';
+import {TouchableHighlight, Text, StyleSheet} from "react-native";
 
 export const GameForm = ({consoleContext, consoleList}) => {
 
@@ -12,11 +13,16 @@ export const GameForm = ({consoleContext, consoleList}) => {
       setConsoleId(consoleContext)
     }, [consoleContext])
 
-    const consoleOptions = consoleList
-
     return (
       <Modal
-        trigger={<Button circular onClick={() => setModalOpen(true)}>+</Button>}
+        trigger={
+          <TouchableHighlight
+            onPress={() => {
+              setModalOpen(true);
+            }}
+          >
+            <Text style={styles.addButton}>Add</Text>
+          </TouchableHighlight>}
         open={modalOpen}
         onClose={() => setModalOpen(false)}
       >
@@ -38,7 +44,7 @@ export const GameForm = ({consoleContext, consoleList}) => {
             <Form.Field>
               <select defaultValue={consoleContext} id="consoles" className="consoles" onChange={e => setConsoleId(e.target.value)}>
                 {
-                  consoleOptions.map(item => {
+                  consoleList.map(item => {
                     return (
                       <option key={item.id} value={item.id}>
                         {item.id}
@@ -80,3 +86,18 @@ export const GameForm = ({consoleContext, consoleList}) => {
       </Modal>
     );
 }
+
+var styles = StyleSheet.create({
+  addButton: {
+    backgroundColor: '#111',
+    fontWeight: 'bold',
+    width: 150,
+    color: '#FFF',
+    padding: 16,
+    fontSize: 16,
+    cursor: 'pointer',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#56abf0'
+  }
+});

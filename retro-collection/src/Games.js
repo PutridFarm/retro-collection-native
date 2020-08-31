@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import './css/games.css';
 import Content from './components/Content';
-import ListView from './components/ListView';
 import {GameForm} from './components/GameForm';
 import {
   ScrollView,
   ActivityIndicator,
   StyleSheet,
+  View,
+  Picker
 } from "react-native";
-import {Button} from "semantic-ui-react";
-import GameList from "./game-list"
+import GameList from "./game-list";
+import ModalTest from "./ModalTest";
 
 class Games extends Component {
 
@@ -17,7 +18,7 @@ class Games extends Component {
     super(props);
     this.state= {
       consoleId:"snes",
-      selectedItem: {},
+      selectedGame: {},
       gameList:[],
       loading:true
     };
@@ -26,7 +27,7 @@ class Games extends Component {
   }
 
   handleMenuSelection (item) {
-    this.setState({selectedItem: item}); //// TODO: Might not need selectedItem.
+    this.setState({selectedGame: item}); //// TODO: Might not need selectedGame.
     console.log("Games updateContent event was fired!");
   }
 
@@ -47,15 +48,14 @@ class Games extends Component {
   }
 
   render() {
-    const backgroundColor = "#FFFFFF";
     return (
-      <React.Fragment>
-        <div className="menu">
+    <React.Fragment>
+      <View style={styles.menu}>
+        <View style={{flexDirection: 'row'}}>
           <ConsoleListDropdown consoleList={this.props.consoleList} onClickEvent={this.handleConsoleSelection}/>
           <GameForm consoleContext={this.state.consoleId} consoleList={this.props.consoleList}/>
-          <Button>
-            Add
-          </Button>
+        </View>
+        <View>
           <ScrollView
             noSpacer={true}
             noScroll={true}
@@ -63,57 +63,102 @@ class Games extends Component {
           >
           {this.state.loading ? (
            <ActivityIndicator
-                style={[styles.centering, styles.background]}
+                style={[styles.centering]}
                 color="#ff8179"
                 size="large"
               />
           ) : (
-            <GameList games={this.state.gameList} onPress={this.handleMenuSelection} style={backgroundColor}/>
+            <GameList games={this.state.gameList} onPress={this.handleMenuSelection}/>
           )}
           </ScrollView>
-          {/*<ListView
-              header="Collection"
-              items= {this.state.gameList}
-              button=<GameForm consoleContext={this.state.consoleId} consoleList={this.props.consoleList}/>
-              onClickEvent={this.handleMenuSelection}
-          />*/}
-        </div>
-        <Content item={this.state.selectedItem} />
-     </React.Fragment>
+        </View>
+      </View>
+      <ModalTest />
+      <Content item={this.state.selectedGame} />
+    </React.Fragment>
     );
   }
 }
 
+/*
+<Pressable onPress={onPress} style={({pressed})=> [styles.row, { backgroundColor: pressed ? '#818489' : '#2D333B' }]}>
+  <Text style={styles.rowDataText}>{`${game.title}`}</Text>
+  <Text style={styles.rowDataSubText}>{game.consoleId}</Text>
+</Pressable>*/
 function ConsoleListDropdown (props) {
   const consoleList = props.consoleList;
+  const onClickEvent = props.onClickEvent;
   return (
-  <div className="console-list-dropdown">
-    <button className="dropbtn">Select Console</button>
-    <div className="console-list-dropdown-content">
-      {
-        consoleList.map(item => {
-          return (
-            <div key={item.id} onClick={() => props.onClickEvent(item.id)}>
-              {item.id}
-            </div>
-          )
-        })
-      }
-    </div>
-  </div>
+
+    <View style={styles.consoleListDropdown}>
+      <Picker
+          style={styles.dropDownButton}
+          onValueChange={(itemValue, itemIndex) => onClickEvent(itemValue)}
+        >
+        {
+          consoleList.map(item => {
+            return (
+                <Picker.Item label={item.name} key={item.id} value={item.id} />
+            )
+          })
+        }
+      </Picker>
+    </View>
   );
 }
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: "#2D333B"
+    backgroundColor: '#2D333B'
   },
   centering: {
-    alignItems: "center",
+    alignItems: 'center',
     justifyContent: "center",
     padding: 8,
     height: '100vh'
   },
+  addButton: {
+    backgroundColor: '#111',
+    fontWeight: 'bold',
+    width: 150,
+    color: '#FFF',
+    padding: 16,
+    fontSize: 16,
+    cursor: 'pointer',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#56abf0'
+  },
+  menu: {
+    marginTop: 20
+  },
+  consoleListDropdown: {
+    position: 'relative',
+    display: 'inline-block',
+    margineBottom: 10
+  },
+  dropDownButton: {
+    backgroundColor: '#111',
+    fontWeight: 'bold',
+    width: 150,
+    color: '#FFF',
+    padding: 16,
+    fontSize: 16,
+    cursor: 'pointer',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#56abf0'
+  }
 });
+
+/* Dropdown Content (Hidden by Default)
+.console-list-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #111;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+} */
 
 export default Games;

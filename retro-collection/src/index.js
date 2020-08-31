@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import * as serviceWorker from './serviceWorker';
-import {
-  Route,
-  NavLink,
-  BrowserRouter
-} from "react-router-dom";
 import Games from "./Games";
 import Home from "./Home";
 import About from "./About";
 import {
   AppRegistry,
-  View
+  View,
+  StyleSheet,
+  Text
 } from 'react-native';
+import { NativeRouter, Link, Route } from "react-router-native";
 import Drawer from 'react-native-drawer';
 import Header from './header';
 
@@ -21,7 +19,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {consoleList: [], open: false};
+    this.state = {consoleList: [], openSideMenu: false};
     this.fetchConsoleList = this.fetchConsoleList.bind(this);
   }
 
@@ -30,7 +28,7 @@ class App extends Component {
   }
 
   openSideMenu = (value) => {
-    this.setState({open: value});
+    this.setState({openSideMenu: value});
   }
 
   fetchConsoleList() {
@@ -47,48 +45,64 @@ class App extends Component {
   }
 
   render() {
-    const drawerStyles = {
-        drawer: { shadowColor: '#FFFFFF', shadowOpacity: 0.8, shadowRadius: 3},
-        main: {paddingLeft: 3},
-    }
     return (
-      <React.Fragment>
-        <BrowserRouter>
+        <NativeRouter>
           <Drawer
               type="overlay"
-              open={this.state.open}
+              open={this.state.openSideMenu}
               content={
-                      <View style={{ flex: 1}}>
-                        <ul className="nav" onClick={() => this.openSideMenu(false)}>
-                          <li><NavLink exact to="/">Home</NavLink></li>
-                          <li><NavLink to="/games">Games</NavLink></li>
-                          <li><NavLink to="/about">About</NavLink></li>
-                        </ul>
+                      <View style={styles.sideMenu}>
+                        <Link exact to="/"><Text style={styles.sideMenuItem}>Home</Text></Link>
+                        <Link to="/games"><Text style={styles.sideMenuItem}>Games</Text></Link>
+                        <Link to="/about"><Text style={styles.sideMenuItem}>About</Text></Link>
                       </View>
                 }
               openDrawerOffset={0.1}
-              styles={drawerStyles}
               tweenHandler={Drawer.tweenPresets.parallax}
           >
-            <div className="App" onClick={() => this.openSideMenu(false)}>
+            <View style={styles.app} onStartShouldSetResponder={() => this.openSideMenu(false)}>
               <Header
-                className="App-header"
                 onIconPress={(e) => {this.openSideMenu(true);e.stopPropagation()}}
                 title="Retro-Collection"
                 />
-              <div className="content">
+              <View style={styles.content}>
                 <Route exact path="/" component={Home}/>
                 <Route path="/about" component={About}/>
                 <Route path="/games" render={() => <Games consoleList={this.state.consoleList}/>}/>
-              </div>
-            </div>
+              </View>
+            </View>
           </Drawer>
-        </BrowserRouter>
-      </React.Fragment>
+        </NativeRouter>
     );
   }
 }
 
+var styles = StyleSheet.create({
+  app: {
+      backgroundColor: '#212121',
+      textAlign: 'center',
+  },
+  content: {
+    width: 'auto',
+  },
+  sideMenu: {
+    flex:1,
+    flexDirection: 'column',
+    padding: 0,
+    width: 100,
+    backgroundColor: '#2D333B',
+  },
+  sideMenuItem: {
+    backgroundColor: '#2D333B',
+    listStyleType: 'none',
+    margin: 0,
+    padding: 20,
+    display: 'inline-block',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF'
+  },
+});
 
 AppRegistry.registerComponent('App', () => App);
 ReactDOM.render(<App />, document.getElementById('root'));

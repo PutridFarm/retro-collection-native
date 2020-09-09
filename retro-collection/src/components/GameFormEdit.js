@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {Form, Input, Button, Modal, Header} from "semantic-ui-react";
-import '../css/GameForm.css';
+import {View} from 'react-native';
+//import '../css/GameForm.css';
 
 export const GameFormEdit = ({gameContext}) => {
 
@@ -17,6 +17,8 @@ export const GameFormEdit = ({gameContext}) => {
     }
 
     return (
+      <View>
+      {/*
       <Modal
         trigger={<Button circular onClick={() => setModalOpen(true)}>*</Button>}
         open={modalOpen}
@@ -70,5 +72,7 @@ export const GameFormEdit = ({gameContext}) => {
           </Form>
         </Modal.Content>
       </Modal>
+    */}
+    </View>
     );
 }

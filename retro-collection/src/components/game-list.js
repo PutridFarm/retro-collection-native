@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, Pressable, Text, StyleSheet} from "react-native";
+import {FlatList, Pressable, Text, StyleSheet, TouchableHighlight} from "react-native";
 
 const GameList = ({games, onPress, style}) => {
 
@@ -27,10 +27,11 @@ const GameList = ({games, onPress, style}) => {
 const GameItem = ({ game, onPress, style}) => {
 
   return (
-    <Pressable onPress={onPress} style={({pressed})=> [styles.row, { backgroundColor: pressed ? '#818489' : '#2D333B' }]}>
-      <Text style={styles.rowDataText}>{`${game.title}`}</Text>
-      <Text style={styles.rowDataSubText}>{game.consoleId}</Text>
-    </Pressable>
+    <React.Fragment>
+    <TouchableHighlight onPress={onPress} style={({pressed})=> [styles.row, { backgroundColor: pressed ? '#818489' : '#2D333B' }]}>
+      <Text style={styles.rowDataText}>{game.title}</Text>
+    </TouchableHighlight>
+    </React.Fragment>
   );
 };
 

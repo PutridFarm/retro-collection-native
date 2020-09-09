@@ -1,39 +1,30 @@
 import React, {useState, useEffect} from "react";
-import {Form, Input, Button, Modal, Header} from "semantic-ui-react";
-import '../css/GameForm.css';
-import {TouchableHighlight, Text, StyleSheet} from "react-native";
+//import '../css/GameForm.css';
+import {
+  Alert,
+  StyleSheet,
+  Button,
+  Text,
+  View
+} from 'react-native';
+import Modal from 'react-native-modal';
 
 export const GameForm = ({consoleContext, consoleList}) => {
 
     const [title, setTitle] = useState("");
     const [consoleId, setConsoleId] = useState(consoleContext);
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect (() => {
       setConsoleId(consoleContext)
     }, [consoleContext])
 
     return (
-      <Modal
-        trigger={
-          <TouchableHighlight
-            onPress={() => {
-              setModalOpen(true);
-            }}
-          >
-            <Text style={styles.addButton}>Add</Text>
-          </TouchableHighlight>}
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-      >
-        <Modal.Content>
-          <Modal.Description>
-            <Header>Add a game to your collection</Header>
-            <p>
-              Include the title of the game and select the console.
-            </p>
-          </Modal.Description>
-          <Form>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Add a game to your collection</Text>
+          <Text>Include the title of the game and select the console.</Text>
+          {/*<Form>
             <Form.Field>
               <Input
                 placeholder="Title"
@@ -67,14 +58,14 @@ export const GameForm = ({consoleContext, consoleList}) => {
 
                 if (response.ok) {
                   console.log('response from /add_game!');
-                  setModalOpen(false);
+                  setModalVisible(false);
                 }
               }}
               >
                 Add
               </Button>
               <Button onClick={() => {
-                  setModalOpen(false);
+                  setModalVisible(false);
                 }
               }
               >
@@ -82,12 +73,19 @@ export const GameForm = ({consoleContext, consoleList}) => {
               </Button>
             </Form.Field>
           </Form>
-        </Modal.Content>
-      </Modal>
+          */}
+        </View>
+      </View>
     );
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
   addButton: {
     backgroundColor: '#111',
     fontWeight: 'bold',
@@ -95,9 +93,38 @@ var styles = StyleSheet.create({
     color: '#FFF',
     padding: 16,
     fontSize: 16,
-    cursor: 'pointer',
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#56abf0'
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
   }
 });

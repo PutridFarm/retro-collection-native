@@ -17,6 +17,19 @@ After setting up Node.js
 3. "cd my-app"
 4. npm start to start node.js and launch index.html
 5. electron . to start the app in a desktop application. Note - a node js server needs to be running
+
+Mobile Development
+package.json - scripts {"start-native" : "expo start"},
+npm run start-native
+
+Updating Dependencies:
+	1. Use npm outdated to discover dependencies that are out of date.
+	2. Use npm update to perform safe dependency upgrades.
+	3. Use npm install <packagename>@latest to upgrade to the latest major version of a package.
+	4. Use npx npm-check-updates -u and npm install to upgrade all dependencies to their latest major versions.
+
+clear metro-cache folder.(for windows default location is %appdata%\Local\Temp\metro-cache)
+
 ===================
 
 === Lessons Learned/Pain Points ===
@@ -43,7 +56,7 @@ PAUSE
 
 =Build and Deploy=
     npm install -g serve
-    serve -s build 
+    serve -s build
 Where build is the directory of the build file.
 
 Serve - used to start a built application locally.
@@ -54,7 +67,7 @@ Serve - used to start a built application locally.
 
 Starts webserver on default ip and can be hit from anywhere in the home network
 
-- sudo apt-get install nginx 
+- sudo apt-get install nginx
 - sudo nginx
 
 - ps -ef -A | grep node

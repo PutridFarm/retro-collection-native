@@ -1,18 +1,22 @@
 import React, { Component } from "react";
-import './css/games.css';
-import Content from './components/Content';
-import {GameForm} from './components/GameForm';
+//import './css/games.css';
+import Content from '../components/Content';
+import {GameForm} from '../components/GameForm';
 import {
+  Alert,
   ScrollView,
   ActivityIndicator,
   StyleSheet,
   View,
-  Picker
+  Picker,
+  Text,
+  TouchableHighlight
 } from "react-native";
-import GameList from "./game-list";
-import ModalTest from "./ModalTest";
+import GameList from "../components/game-list";
+import ModalTest from "../ModalTest";
+import Modal from 'react-native-modal';
 
-class Games extends Component {
+class GameScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -20,10 +24,16 @@ class Games extends Component {
       consoleId:"snes",
       selectedGame: {},
       gameList:[],
-      loading:true
+      loading:true,
+      addGameModalVisible: false
     };
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
     this.handleConsoleSelection = this.handleConsoleSelection.bind(this);
+  }
+
+  setAddGameModalVisible(visible)
+  {
+    this.setState({addGameModalVisible: visible});
   }
 
   handleMenuSelection (item) {
@@ -50,10 +60,31 @@ class Games extends Component {
   render() {
     return (
     <React.Fragment>
-      <View style={styles.menu}>
+      <View style={{marginTop: 20}}>
         <View style={{flexDirection: 'row'}}>
-          <ConsoleListDropdown consoleList={this.props.consoleList} onClickEvent={this.handleConsoleSelection}/>
-          <GameForm consoleContext={this.state.consoleId} consoleList={this.props.consoleList}/>
+          <View style={{padding: 10}}><ConsoleListDropdown consoleList={this.props.consoleList} onClickEvent={this.handleConsoleSelection}/></View>
+          <View style={{padding: 10}}>
+            <Modal
+              animationType="slide"
+              isVisible={this.state.addGameModalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <GameForm consoleContext={this.state.consoleId} consoleList={this.props.consoleList}/>
+                </View>
+              </View>
+            </Modal>
+            <TouchableHighlight
+                  onPress={() => {
+                    this.setAddGameModalVisible(true);
+                  }}
+                >
+              <Text style={styles.addButton}>Add</Text>
+            </TouchableHighlight>
+          </View>
         </View>
         <View>
           <ScrollView
@@ -73,7 +104,6 @@ class Games extends Component {
           </ScrollView>
         </View>
       </View>
-      <ModalTest />
       <Content item={this.state.selectedGame} />
     </React.Fragment>
     );
@@ -109,7 +139,10 @@ function ConsoleListDropdown (props) {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2D333B'
+    backgroundColor: '#2D333B',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#56abf0'
   },
   centering: {
     alignItems: 'center',
@@ -124,18 +157,12 @@ var styles = StyleSheet.create({
     color: '#FFF',
     padding: 16,
     fontSize: 16,
-    cursor: 'pointer',
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#56abf0'
   },
-  menu: {
-    marginTop: 20
-  },
   consoleListDropdown: {
-    position: 'relative',
-    display: 'inline-block',
-    margineBottom: 10
+    position: 'relative'
   },
   dropDownButton: {
     backgroundColor: '#111',
@@ -144,7 +171,6 @@ var styles = StyleSheet.create({
     color: '#FFF',
     padding: 16,
     fontSize: 16,
-    cursor: 'pointer',
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#56abf0'
@@ -161,4 +187,4 @@ var styles = StyleSheet.create({
   z-index: 1;
 } */
 
-export default Games;
+export default GameScreen;

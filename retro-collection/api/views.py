@@ -66,10 +66,6 @@ def game(consoleId, gameTitle):
     else:
         return jsonify({'game' : {}})
 
-
-
-
-
 @main.route('/games/<consoleId>/current-price', methods=["GET"]) #entry point
 def currentPrice(consoleId):
     gameTitle = request.args.get('game', default = "", type = str)

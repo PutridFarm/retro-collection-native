@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, View, SafeAreaView, ScrollView} from "react-native";
-import Constants from 'expo-constants';
+import {getApplicationVersion} from '../utils';
 
 const AboutScreen = () => (
   <SafeAreaView style={{ backgroundColor: '#363c46', flexGrow: 1, alignItems: 'center', padding: 10}}>
@@ -8,7 +8,7 @@ const AboutScreen = () => (
         <View style={{
           padding: 10, borderRadius: 5,
           borderWidth: 2,
-          borderColor: '#56abf0',
+          borderColor: '#4488c0',
           backgroundColor: '#2D333B',
           marginTop: 10,
           }}>
@@ -23,7 +23,7 @@ const AboutScreen = () => (
               {'\n'}
               Date Created: Sept 14, 2020
               {'\n'}
-              Version: {Constants.manifest.version}
+              Version: {getApplicationVersion()}
               {'\n'}
             </Text>
           </View>
@@ -32,7 +32,7 @@ const AboutScreen = () => (
         <View style={{
           padding: 10, borderRadius: 5,
           borderWidth: 2,
-          borderColor: '#56abf0',
+          borderColor: '#4488c0',
           backgroundColor: '#2D333B',
           marginTop: 10,
           }}>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {GameFormEdit} from './GameFormEdit';
 
-class Content extends Component{
+
+class GameContent extends Component{
   
  //"/games/" + item.consoleId.toLowerCase() + "/current-price?game=" + item.title
   fetchPrice = (item) => {

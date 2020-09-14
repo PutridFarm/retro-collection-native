@@ -44,8 +44,8 @@ def delete_game():
 @main.route('/games/<consoleId>', methods=["GET"]) #entry point
 def games(consoleId):
 
-    print("games[get] consoleId = ", consoleId.upper())
-    game_list = Game.query.filter_by(consoleId=consoleId.upper()) #return a SQLAlchemy object
+    print("games[get] consoleId = ", consoleId)
+    game_list = Game.query.filter_by(consoleId=consoleId) #return a SQLAlchemy object
     games = []
 
     for game in game_list:

@@ -8,12 +8,8 @@ import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
 
 import {
-  AppRegistry,
-  View,
   StyleSheet,
-  Text,
   TouchableHighlight,
-  Button,
   Image
 } from 'react-native';
 
@@ -88,13 +84,24 @@ export default function MainApp() {
       <NavigationContainer>
         <Drawer.Navigator 
           drawerStyle={{
+            flex: 1,
             backgroundColor: '#363c46',
-            width: 120,
-            alignItems: 'center',
-            color: 'white'
+            width: 140,
           }}
-          contentOptions= {{
-            
+          drawerContentOptions={{
+            activeTintColor: '#56abf0',
+            inactiveTintColor: '#D8D8D8',
+            itemStyle: {
+              borderWidth: 2,
+              width: 120,
+              alignItems: 'center',
+            },
+            labelStyle: { //style object to apply to the Text style inside content section which renders a label
+              fontSize: 18,
+              marginLeft: 15, //Center the label inside the item. Appears to be a bug with any other centering technique on parents items
+              marginRight: -15//https://github.com/react-navigation/react-navigation/issues/7905
+            },
+            style: {} //style object for the wrapper view
           }}
           >
           <Drawer.Screen name="Home" component={HomeStackScreen}/>
@@ -104,41 +111,6 @@ export default function MainApp() {
       </NavigationContainer>
     );
 }
-
-const SideNavMenu = (visible) => (
-  <View style={{
-    flex: 1,
-    width: 100,
-    flexDirection: 'column',
-    backgroundColor: '#212111',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  }}>
-    <View style={{
-        width: 100,
-        height: 10,
-        padding: 25,
-      }}><Text style={styles.whiteText}>Home</Text></View>
-      <View style={{
-        width: 100,
-        height: 10,
-        padding: 25,
-      }}><Text style={styles.whiteText}>Games</Text></View>
-      <View style={{
-        width: 100,
-        height: 10,
-        padding: 25,
-      }}><Text style={styles.whiteText}>About</Text></View>
-      <View style={{
-        width: 100,
-        height: 10,
-        padding: 25,
-      }}></View>
-  </View>
-)
 
 var styles = StyleSheet.create({
   app: {
@@ -170,7 +142,7 @@ var styles = StyleSheet.create({
     padding: 5,
     marginLeft: 5,
     borderRadius: 10,
-    borderColor: "#56abf0",
+    borderColor: '#4488c0',
     borderWidth: 2,
     width: 50,
     height: 50

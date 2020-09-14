@@ -10,7 +10,7 @@ const HomeScreen = () => (
         padding: 10, 
         borderRadius: 5,
         borderWidth: 2,
-        borderColor: '#56abf0',
+        borderColor: '#4488c0',
         backgroundColor: '#2D333B',
         }}>
         <Text style={{color: '#CECECE', fontSize: 10}}>

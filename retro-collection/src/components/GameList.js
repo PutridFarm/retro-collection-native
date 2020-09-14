@@ -1,7 +1,23 @@
-import React from "react";
-import {FlatList, Text,TouchableHighlight, View, StyleSheet} from "react-native";
+import React, {useState} from "react";
+import {FlatList, Text,TouchableHighlight, View, StyleSheet, RefreshControl} from "react-native";
 
-const GameList = ({headerComponent, games, onPress, style}) => {
+
+const GameList = ({games, onPress}) => {
+
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, isLoading] = useState(true);
+
+  const wait = (timeout) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  } 
+  
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const renderItem = ({ item }) => {
     return (
@@ -19,6 +35,9 @@ const GameList = ({headerComponent, games, onPress, style}) => {
         data={games}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );
@@ -33,10 +52,13 @@ const GameItem = ({ game, onPress}) => (
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#2D333B',
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#56abf0',
-    marginBottom: 165
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderTopWidth: 2,
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    borderColor: '#4488c0',
+    marginBottom: 180 //adjust to line up list with bottom of screen
   },
   item: {
     borderBottomWidth: StyleSheet.hairlineWidth,

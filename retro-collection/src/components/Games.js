@@ -12,14 +12,14 @@ import {
   Text,
   TouchableHighlight
 } from "react-native";
-import GameList from "../components/game-list";
+import GameList from "../components/GameList";
 import ModalTest from "../ModalTest";
 import Modal from 'react-native-modal';
 
 export const Games = () => {
 
     const [consoleList, setConsoleList] = useState([]);
-    const [consoleId, setConsoleId] = useState("snes");
+    const [consoleId, setConsoleId] = useState("");
     const [gameList, setGameList] = useState([]);
     const [loading, isLoading] = useState(true);
     const [addGameModalVisible, setGameModalVisible] = useState(false);
@@ -28,10 +28,17 @@ export const Games = () => {
     const url = "http://192.168.0.134:5000/";
 
     useEffect (() => {
-        //setConsoleList(consoles);
-        //handleConsoleSelection(consoleId);
         fetchConsoleList();
       },[]);
+
+      useEffect (() => {
+        console.log("In consoleId useEffect!:" + consoleId);
+        //only query game list when consoleId has been set
+        if(consoleId)
+        {
+          handleConsoleSelection(consoleId);
+        }
+      },[consoleId]);
 
 
   function handleMenuSelection (item) {
@@ -40,17 +47,20 @@ export const Games = () => {
   };
 
   function handleConsoleSelection (consoleId) {
-      console.log("handConsoleSelection item.id:" + consoleId.toLowerCase());
-      fetch(url + "games/" + consoleId.toLowerCase()).then(response =>
+      console.log("handConsoleSelection item.id:" + consoleId);
+      
+      setConsoleId(consoleId);
+
+      fetch(url + "games/" + consoleId).then(response =>
         response.json().then(data => {
           setGameList(data.games);
-          setConsoleId(consoleId.toLowerCase());
           isLoading(false);
         })
       )
       .catch(error=>{
         console.log(error)
       });
+      
   }
 
   function fetchConsoleList() {
@@ -60,14 +70,49 @@ export const Games = () => {
      })
      .then(data => {
         setConsoleList(data.consoles);
+        //Initialize the consoleId as the first selection from the console list.
+        //Assumes data.consoles returns consoles, otherwise will throw an error - add check?
+        setConsoleId(data.consoles[0].id); 
      })
      .catch(error=>{
        console.log(error)
      });
   }
 
+  function ConsoleListDropdown () {
     return (
-          <ConsoleListDropdown consoleList={consoleList} onClickEvent={handleConsoleSelection}/>
+      <View style={styles.consoleListDropdown}>
+        <Picker
+            style={styles.dropDownButton}
+            onValueChange={(itemValue) => {
+              handleConsoleSelection(itemValue);
+            }}
+            selectedValue={consoleId}
+          >
+          {
+            consoleList.map(item => {
+              return (
+                  <Picker.Item label={item.name} key={item.id} value={item.id} />
+              )
+            })
+          }
+        </Picker>
+      </View>
+    );
+  }
+
+    return (
+      <React.Fragment>
+          <View style={{padding: 10}}>
+            <ConsoleListDropdown consoleList={consoleList}/>
+          </View>
+          <View> 
+            <GameList
+              games={gameList}
+              onPress={handleMenuSelection}
+            />
+          </View>
+      </React.Fragment>
     );
   }
 
@@ -76,41 +121,8 @@ export const Games = () => {
   <Text style={styles.rowDataText}>{`${game.title}`}</Text>
   <Text style={styles.rowDataSubText}>{game.consoleId}</Text>
 </Pressable>*/
-function ConsoleListDropdown (props) {
-  const consoleList = props.consoleList;
-  const onClickEvent = props.onClickEvent;
-  return (
-
-    <View style={styles.consoleListDropdown}>
-      <Picker
-          style={styles.dropDownButton}
-          onValueChange={(itemValue, itemIndex) => onClickEvent(itemValue)}
-        >
-        {
-          consoleList.map(item => {
-            return (
-                <Picker.Item label={item.name} key={item.id} value={item.id} />
-            )
-          })
-        }
-      </Picker>
-    </View>
-  );
-}
 
 var styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#2D333B',
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#56abf0'
-  },
-  centering: {
-    alignItems: 'center',
-    justifyContent: "center",
-    padding: 8,
-    height: '100vh'
-  },
   addButton: {
     backgroundColor: '#111',
     fontWeight: 'bold',
@@ -123,18 +135,15 @@ var styles = StyleSheet.create({
     borderColor: '#56abf0'
   },
   consoleListDropdown: {
-    position: 'relative'
+    borderRadius: 5,
+    borderWidth: 6,
+    borderColor: '#56abf0',
+    width: 150
   },
   dropDownButton: {
     backgroundColor: '#111',
-    //fontWeight: 'bold',
-    width: 150,
     color: '#FFF',
-    padding: 16,
     //fontSize: 16,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#56abf0'
   }
 });
 

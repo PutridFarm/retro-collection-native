@@ -29,7 +29,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 export default function MainApp() {
 
-  //const [consoleList, setConsoleList] = useState([]);
   const [openSideMenu, setOpenSideMenu] = useState(true);
 
   const Drawer = createDrawerNavigator();
@@ -61,7 +60,6 @@ export default function MainApp() {
         name="Retro Collection"
         component={HomeScreen}
         options={StackScreenHeaderOptions({navigation})}
-        style={styles.app}
       />
     </Stack.Navigator>
   );
@@ -88,12 +86,18 @@ export default function MainApp() {
 
     return (
       <NavigationContainer>
-        <Drawer.Navigator drawerStyle={{
-          backgroundColor: '#363c46',
+        <Drawer.Navigator 
+          drawerStyle={{
+            backgroundColor: '#363c46',
             width: 120,
-            alignItems: 'center'
-          }}>
-          <Drawer.Screen name="Home" component={HomeStackScreen} />
+            alignItems: 'center',
+            color: 'white'
+          }}
+          contentOptions= {{
+            
+          }}
+          >
+          <Drawer.Screen name="Home" component={HomeStackScreen}/>
           <Drawer.Screen name="Games" component={GameStackScreen} />
           <Drawer.Screen name="About" component={AboutStackScreen} />
         </Drawer.Navigator>
@@ -140,11 +144,6 @@ var styles = StyleSheet.create({
   app: {
       flex: 1,
       backgroundColor: '#363c46',
-      // Set content's vertical alignment.
-      //justifyContent: 'center',
-      // Set content's horizontal alignment.
-      //alignItems: 'center',
-      //textAlign: 'center',
   },
   whiteText: {
     color: '#FFFFFF',
@@ -169,6 +168,7 @@ var styles = StyleSheet.create({
   icon: {
     backgroundColor: '#282c34',
     padding: 5,
+    marginLeft: 5,
     borderRadius: 10,
     borderColor: "#56abf0",
     borderWidth: 2,

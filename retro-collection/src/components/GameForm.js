@@ -6,11 +6,12 @@ import {
   TextInput,
   View,
   TouchableHighlight,
-  Modal
+  Modal,
+  Alert
 } from 'react-native';
-import {getDatabaseURL} from '../utils';
+import {getDatabaseURL, postDataAsync, isEmptyOrSpaces} from '../utils';
 
-export const GameForm = ({consoleContext, consoleList}) => {
+export const GameForm = ({consoleContext, consoleList, onSuccess}) => {
 
     const [title, setTitle] = useState("");
     const [consoleId, setConsoleId] = useState(consoleContext);
@@ -22,13 +23,56 @@ export const GameForm = ({consoleContext, consoleList}) => {
       setConsoleId(consoleContext)
     }, [consoleContext])
 
+    function handleOkayButtonClick() {
+      const isValid = validateInput();
+      if(isValid) {
+        sendAddGameRequest();
+      }
+    }
+
+    function validateInput() {
+      if (isEmptyOrSpaces(title)) {
+        Alert.alert(
+          'Error validating input',
+          'Title cannot be blank',
+          [{ text: 'OK'}],
+          { cancelable: false }
+        );
+        return false;
+      }
+      return true;
+    }
+
+    async function sendAddGameRequest () {
+      const game = {title, consoleId};
+      const response = await fetch(url + '/add_game', {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(game)
+      })
+    
+      if (response.ok) {
+        console.log('response is ok from /add_game!');
+        onSuccess();
+        setModalVisible(false);
+      }
+      else {
+        Alert.alert(
+          'Error Adding Game',
+          'An error occured when attempting to add the game. Please try again later.',
+          [{ text: 'OK'}],
+          { cancelable: false }
+        );
+      }
+    }
+
     function AddButton () {
       return (
         <TouchableHighlight
           style={styles.addButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
+          onPress={() => setModalVisible(true)}
         >
           <Text style={{color: '#FFF', fontSize: 22}}>+</Text>
         </TouchableHighlight>
@@ -39,21 +83,7 @@ export const GameForm = ({consoleContext, consoleList}) => {
       return (
           <TouchableHighlight 
             style={styles.modalButton}  
-            onPress={async () => {
-                const game = {title, consoleId};
-                const response = await fetch(url + '/add_game', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type':'application/json'
-                  },
-                  body: JSON.stringify(game)
-                })
-  
-                if (response.ok) {
-                  console.log('response from /add_game!');
-                  setModalVisible(false);
-                }
-            }}
+            onPress={() => handleOkayButtonClick()}
           >
             <Text style={{fontSize: 20, color: '#D8D8D8'}}>Okay</Text>
           </TouchableHighlight>
@@ -64,9 +94,7 @@ export const GameForm = ({consoleContext, consoleList}) => {
       return (
         <TouchableHighlight 
           style={styles.modalButton} 
-          onPress={() => {
-            setModalVisible(false);
-          }}
+          onPress={() => setModalVisible(false)}
         >
           <Text style={{fontSize: 20, color: '#D8D8D8'}}>Cancel</Text>
         </TouchableHighlight>

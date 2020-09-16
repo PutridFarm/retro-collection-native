@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
+  Error
 } from "react-native";
 import GameList from "./GameList";
 import ConsoleListDropdown from './ConsoleListDropdown';
@@ -27,7 +28,7 @@ export const Games = () => {
         //only query game list when consoleId has been set
         if(consoleId)
         {
-          handleConsoleSelection(consoleId);
+          readGames(consoleId);
         }
       },[consoleId]);
 
@@ -39,33 +40,44 @@ export const Games = () => {
 
     function handleConsoleSelection (consoleId) {
         console.log("handConsoleSelection item.id:" + consoleId);
-        
         setConsoleId(consoleId);
+    }
 
-        fetch(url + "games/" + consoleId).then(response =>
-          response.json().then(data => {
-            setGameList(data.games);
-            isLoading(false);
-          })
-        )
-        .catch(error=>{
-          console.log(error)
-        });
-        
+    function readGames(consoleId)
+    {
+      console.log("readGames consoleId:" + consoleId);
+      fetch(url + "games/" + consoleId)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+          setGameList(data.games);
+          isLoading(false);
+        })
+      .catch(error=>{
+        console.log(error)
+      });
+    }
+
+    function handleRefresh()
+    {
+      console.log("handleRefresh...consoleId:" + consoleId);
+      readGames(consoleId);
     }
 
     //Reads the console list from the database, setting the global
     //console list variable. Initializes the consoleId as the first console
     //in the list
     function fetchConsoleList() {
+      console.log("fetchingConsoleList...")
       fetch(url + "consoles")
       .then(response => {
-        return response.json()
+        return response.json();
       })
       .then(data => {
-          setConsoleList(data.consoles);
-          //Assumes data.consoles returns consoles, otherwise will throw an error - add check?
-          setConsoleId(data.consoles[0].id); 
+        setConsoleList(data.consoles);
+        //Assumes data.consoles returns consoles, otherwise will throw an error - add check?
+        setConsoleId(data.consoles[0].id); 
       })
       .catch(error=>{
         console.log(error)
@@ -84,6 +96,7 @@ export const Games = () => {
             <GameForm
               consoleContext={consoleId} 
               consoleList={consoleList}
+              onSuccess={handleRefresh}
             />
           </View>
           <View>
@@ -96,6 +109,7 @@ export const Games = () => {
               <GameList
                 games={gameList}
                 onPress={handleMenuSelection}
+                onRefresh={handleRefresh}
               />
             )}
           </View>

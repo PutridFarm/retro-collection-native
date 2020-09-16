@@ -6,14 +6,35 @@ from .models import Console
 
 main = Blueprint('main', __name__)
 
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
+
+@main.errorhandler(InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
 @main.route('/add_game', methods=['POST']) #entry point
 def add_game():
     game_data = request.get_json()
 
     print("add_game[post] title = ", game_data['title'] ,"consoleId = ", game_data['consoleId'])
     #process data, TO DO: check valid console id
-    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'].upper(), text="")
-
+    new_game = Game(title=game_data['title'], consoleId=game_data['consoleId'], text="")
+    #raise InvalidUsage('Test error message handling', status_code=410)
     db.session.add(new_game)
     db.session.commit()
     return 'Done', 201

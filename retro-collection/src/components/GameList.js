@@ -2,22 +2,9 @@ import React, {useState} from "react";
 import {FlatList, Text,TouchableHighlight, View, StyleSheet, RefreshControl} from "react-native";
 
 
-const GameList = ({games, onPress}) => {
+const GameList = ({games, onPressm, onRefresh}) => {
 
   const [refreshing, setRefreshing] = useState(false);
-  const [loading, isLoading] = useState(true);
-
-  const wait = (timeout) => {
-    return new Promise(resolve => {
-      setTimeout(resolve, timeout);
-    });
-  } 
-  
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
 
   const renderItem = ({ item }) => {
     return (
@@ -58,7 +45,7 @@ var styles = StyleSheet.create({
     borderRightWidth: 2,
     borderLeftWidth: 2,
     borderColor: '#4488c0',
-    marginBottom: 180 //adjust to line up list with bottom of screen
+    marginBottom: 220 //adjust to line up list with bottom of screen
   },
   item: {
     borderBottomWidth: StyleSheet.hairlineWidth,

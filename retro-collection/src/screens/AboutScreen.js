@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, SafeAreaView, ScrollView} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, StyleSheet, Image} from "react-native";
 import {getApplicationVersion} from '../utils';
 
 const AboutScreen = () => (
@@ -36,21 +36,36 @@ const AboutScreen = () => (
           backgroundColor: '#2D333B',
           marginTop: 10,
           }}>
-          <Text style={{color: '#CECECE', fontSize: 20, padding: 10, fontWeight: "bold"}}>
+          <Text style={{color: '#CECECE', fontSize: 20, fontWeight: "bold"}}>
             Support
-          </Text>  
-          <Text style={{color: '#CECECE',fontSize: 18,marginTop: 10}}>
-            If you would like to support the developement of Retro Collection, every little bit helps and is greatly appreciated, thank you so much for your support!
-            {'\n'}
-            {'\n'}
-            Patreon - 
-            {'\n'}
-            PayPal - 
-            {'\n'}
           </Text>
+            <Text style={{color: '#CECECE',fontSize: 18, marginVertical: 10}}>
+              If you would like to support the developement of Retro Collection, every little bit helps and is greatly appreciated, thank you so much for your support!
+            </Text>
+            {/*<View style={{padding: 10, flexDirection: 'row', justifyContent: 'space-between'}}>*/}
+              <Image style={styles.paypal} source={require('../images/paypal_donate.png')} alt="paypal_button"/>
+              <Image style={styles.patreon} source={require('../images/patreon_fiery_coal_logo.png')} alt="patreon_button"/>
+              {/*<Image style={styles.image} source={require('../images/putrid_farm_logo.png')} alt="company_icon"/>*/}
         </View>
       </ScrollView>
     </SafeAreaView>
 )
+
+var styles = StyleSheet.create({
+  image: {
+    width: 200,
+    height: 150,
+  },
+  paypal: {
+    width: 125,
+    height: 37,
+    marginVertical: 5
+  },
+  patreon: {
+    width: 130,
+    height: 29,
+    marginVertical: 5
+  }
+});
 
 export default AboutScreen;

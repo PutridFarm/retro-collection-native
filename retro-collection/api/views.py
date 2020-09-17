@@ -102,6 +102,6 @@ def consoles():
     consoles = []
 
     for console in console_list:
-        consoles.append({'id' : console.id, 'name' : console.name})
+        consoles.append({'id' : console.id, 'name' : console.name, 'active': console.active})
 
     return jsonify({'consoles' : consoles})

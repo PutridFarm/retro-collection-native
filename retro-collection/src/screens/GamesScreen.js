@@ -1,10 +1,10 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Text, View, Button} from "react-native";
 import Games from '../components/Games';
 
-const GamesScreen = ({consoleList}) => (
+const GamesScreen = ({navigation}) => (
     <View style={{backgroundColor: '#363c46', flexGrow: 1}}>
-        <Games/>
+        <Games navigation={navigation}/>
     </View>
 )
 

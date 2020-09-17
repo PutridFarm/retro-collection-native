@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 //import './css/index.css';
 //import * as serviceWorker from './serviceWorker';
 
-import GameScreen from "./screens/GamesScreen";
-import HomeScreen from "./screens/HomeScreen";
-import AboutScreen from "./screens/AboutScreen";
+import GameScreen from './screens/GamesScreen';
+import HomeScreen from './screens/HomeScreen';
+import AboutScreen from './screens/AboutScreen';
+import SettingsScreen from './screens/SettingsScreen'
+import GameDetailsScreen from './screens/GameDetailsScreen';
 
 import {
   StyleSheet,
@@ -32,7 +34,7 @@ export default function MainApp() {
 
   const SideMenuIcon = ({navigation}) => (
     <TouchableHighlight onPress={() => navigation.openDrawer()}>
-      <Image style={styles.icon} source={require('./images/Hamburger_icon.svg.png')} alt="hamburger_icon"/>
+      <Image style={styles.icon} source={require('./images/Hamburger_icon.svg.png')} alt='hamburger_icon'/>
     </TouchableHighlight>
   );
 
@@ -53,7 +55,7 @@ export default function MainApp() {
   const HomeStackScreen = ({navigation}) => (
     <Stack.Navigator>
       <Stack.Screen
-        name="Retro Collection"
+        name='Retro Collection'
         component={HomeScreen}
         options={StackScreenHeaderOptions({navigation})}
       />
@@ -63,8 +65,23 @@ export default function MainApp() {
   const GameStackScreen = ({navigation}) => (
     <Stack.Navigator>
       <Stack.Screen
-        name="Games"
+        name='Games'
         component={GameScreen}
+        options={StackScreenHeaderOptions({navigation})}
+      />
+      <Stack.Screen
+        name='GameDetails'
+        component={GameDetailsScreen}
+        options={({ route }) => ({ title: route.params.title })} //Need this to set title when opening GameDetails
+      />
+    </Stack.Navigator>
+  );
+
+  const SettingsStackScreen = ({navigation}) => (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='Settings'
+        component={SettingsScreen}
         options={StackScreenHeaderOptions({navigation})}
       />
     </Stack.Navigator>
@@ -73,7 +90,7 @@ export default function MainApp() {
   const AboutStackScreen = ({navigation}) => (
     <Stack.Navigator>
       <Stack.Screen
-        name="About"
+        name='About'
         component={AboutScreen}
         options={StackScreenHeaderOptions({navigation})}
       />
@@ -86,27 +103,62 @@ export default function MainApp() {
           drawerStyle={{
             flex: 1,
             backgroundColor: '#363c46',
-            width: 140,
+            width: 170,
+            
           }}
           drawerContentOptions={{
             activeTintColor: '#56abf0',
             inactiveTintColor: '#D8D8D8',
             itemStyle: {
-              borderWidth: 2,
-              width: 120,
+              width: 145,
               alignItems: 'center',
+              borderWidth: 2,
             },
             labelStyle: { //style object to apply to the Text style inside content section which renders a label
               fontSize: 18,
+              
               marginLeft: 15, //Center the label inside the item. Appears to be a bug with any other centering technique on parents items
               marginRight: -15//https://github.com/react-navigation/react-navigation/issues/7905
             },
             style: {} //style object for the wrapper view
           }}
           >
-          <Drawer.Screen name="Home" component={HomeStackScreen}/>
-          <Drawer.Screen name="Games" component={GameStackScreen} />
-          <Drawer.Screen name="About" component={AboutStackScreen} />
+          <Drawer.Screen 
+            name='Home' 
+            component={HomeStackScreen}
+            options={{drawerIcon: ({ tintColor }) => (
+              <Image
+                source={require('./images/home_icon.png')}
+                style={[styles.drawerIcon, { tintColor: tintColor }]}
+              />
+            )}}
+          />
+          <Drawer.Screen 
+            name='Games' 
+            component={GameStackScreen} 
+            options={{drawerIcon: ({ tintColor }) => (
+              <Image
+                source={require('./images/games_icon.png')}
+                style={[{...styles.drawerIcon}, { marginLeft: 10 }]}
+              />
+            )}}
+          />
+          <Drawer.Screen name='Settings' component={SettingsStackScreen} 
+            options={{drawerIcon: ({ tintColor }) => (
+              <Image
+                source={require('./images/gear_icon.png')}
+                style={[{...styles.drawerIcon}, { marginLeft: 10 }]}
+              />
+            )}}
+          />
+          <Drawer.Screen name='About' component={AboutStackScreen} 
+            options={{drawerIcon: ({ tintColor }) => (
+              <Image
+                source={require('./images/question_mark_icon.png')}
+                style={[{...styles.drawerIcon}]}
+              />
+            )}}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -123,20 +175,6 @@ var styles = StyleSheet.create({
   content: {
     width: 'auto',
   },
-  sideMenu: {
-    flex:1,
-    flexDirection: 'column',
-    padding: 0,
-    width: 100,
-    backgroundColor: '#2D333B',
-  },
-  sideMenuItem: {
-    backgroundColor: '#2D333B',
-    margin: 0,
-    padding: 20,
-    fontSize: 18,
-    color: '#FFFFFF'
-  },
   icon: {
     backgroundColor: '#282c34',
     padding: 5,
@@ -146,5 +184,10 @@ var styles = StyleSheet.create({
     borderWidth: 2,
     width: 50,
     height: 50
+  },
+  drawerIcon: {
+    width: 50,
+    height: 50,
+    marginRight: -35
   }
 });

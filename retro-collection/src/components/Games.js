@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {GameForm} from './GameForm';
 import {
   StyleSheet,
   View,
   ActivityIndicator,
   Error
 } from "react-native";
+import GameForm from './GameForm';
 import GameList from "./GameList";
 import ConsoleListDropdown from './ConsoleListDropdown';
 import {getDatabaseURL} from '../utils';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export const Games = () => {
+const Stack = createStackNavigator();
+
+export const Games = ({navigation}) => {
 
     const [consoleList, setConsoleList] = useState([]);
     const [consoleId, setConsoleId] = useState("");
@@ -24,18 +28,25 @@ export const Games = () => {
         fetchConsoleList();
       },[]);
 
-      useEffect (() => {
-        //only query game list when consoleId has been set
-        if(consoleId)
-        {
-          readGames(consoleId);
-        }
-      },[consoleId]);
+    //Used on initial load to read the games list based on consoleId,
+    //as well as subsequent changes to the consoleId
+    useEffect (() => {
+      //only query game list when consoleId has been set
+      if(consoleId)
+      {
+        readGames(consoleId);
+      }
+    },[consoleId]);
 
 
     function handleMenuSelection (item) {
       setSelectedGame(item); //// TODO: Might not need selectedGame.
-      console.log("Games updateContent event was fired!");
+      console.log("Games updateContent event was fired! " + item.title);
+      navigation.navigate('GameDetails', {
+        title: item.title,
+        screen: 'GameScreen',
+        params: {gameContext: item},
+      });
     };
 
     function handleConsoleSelection (consoleId) {
@@ -43,6 +54,7 @@ export const Games = () => {
         setConsoleId(consoleId);
     }
 
+    //Performs a read given the console id, sets gameList state variable as the return value.
     function readGames(consoleId)
     {
       console.log("readGames consoleId:" + consoleId);
@@ -65,9 +77,9 @@ export const Games = () => {
       readGames(consoleId);
     }
 
-    //Reads the console list from the database, setting the global
-    //console list variable. Initializes the consoleId as the first console
-    //in the list
+    /*Reads the console list from the database, setting the global
+      console list variable. Initializes the consoleId as the first console
+      in the list*/
     function fetchConsoleList() {
       console.log("fetchingConsoleList...")
       fetch(url + "consoles")

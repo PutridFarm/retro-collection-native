@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {getDatabaseURL, postDataAsync, isEmptyOrSpaces} from '../utils';
 
-export const GameForm = ({consoleContext, consoleList, onSuccess}) => {
+const GameForm = ({consoleContext, consoleList, onSuccess}) => {
 
     const [title, setTitle] = useState("");
     const [consoleId, setConsoleId] = useState(consoleContext);
@@ -195,3 +195,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#D8D8D8',
   }
 });
+
+export default GameForm;

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FlatList, Text,TouchableHighlight, View, StyleSheet, RefreshControl} from "react-native";
 
 
-const GameList = ({games, onPressm, onRefresh}) => {
+const GameList = ({games, onPress, onRefresh}) => {
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -23,7 +23,7 @@ const GameList = ({games, onPressm, onRefresh}) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
         }
       />
     </View>

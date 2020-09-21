@@ -72,7 +72,16 @@ export default function MainApp() {
       <Stack.Screen
         name='GameDetails'
         component={GameDetailsScreen}
-        options={({ route }) => ({ title: route.params.title })} //Need this to set title when opening GameDetails
+        options={({ navigation, route }) => ({
+          headerStyle: {
+            backgroundColor: '#252930',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          title: route.params.title 
+        })} //Need this to set title when opening GameDetails
       />
     </Stack.Navigator>
   );

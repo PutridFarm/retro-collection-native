@@ -113,10 +113,12 @@ export const Games = ({navigation}) => {
           </View>
           <View>
             {loading ? (
-            <View style={{justifyContent: 'center'}}><ActivityIndicator
+              <View style={{justifyContent: 'center'}}>
+                <ActivityIndicator
                   color='#4488c0'
                   size='large'
-                /></View>
+                />
+              </View>
             ) : (
               <GameList
                 games={gameList}

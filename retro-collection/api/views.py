@@ -62,6 +62,8 @@ def delete_game():
     db.session.commit()
     return 'Done', 201
 
+#Returns a JSON object with element "games" which contains a list of all games
+#specifc to the given consoleId
 @main.route('/games/<consoleId>', methods=["GET"]) #entry point
 def games(consoleId):
 
@@ -70,7 +72,7 @@ def games(consoleId):
     games = []
 
     for game in game_list:
-        games.append({'id' : game.id, 'title' : game.title, 'consoleId' : game.consoleId, 'text' : game.text})
+        games.append({'id' : game.id, 'title' : game.title, 'text' : game.text, 'consoleId' : game.consoleId, 'consoleName' : game.console.name})
 
     return jsonify({'games' : games})
 
@@ -96,10 +98,18 @@ def currentPrice(consoleId):
 
     return jsonify({'price': 20.00})
 
+#Returns a JSON object with element "console" which contains a list of all consoles in the system
 @main.route('/consoles', methods=["GET"]) #entry point
 def consoles():
     console_list = Console.query.filter_by(active=True) #return a SQLAlchemy object
     consoles = []
+
+    #Saving code snippet in case I need to return all consoles and all games
+    #for console in console_list:
+    #    games = []
+    #    for game in console.games: 
+    #        games.append({'title' : game.title})
+    #    consoles.append({'id' : console.id, 'name' : console.name, 'active': console.active, 'games': games})
 
     for console in console_list:
         consoles.append({'id' : console.id, 'name' : console.name, 'active': console.active})

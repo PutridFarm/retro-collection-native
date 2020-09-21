@@ -9,7 +9,7 @@ import {
   Modal,
   Alert
 } from 'react-native';
-import {getDatabaseURL, postDataAsync, isEmptyOrSpaces} from '../utils';
+import {getDatabaseURL, isEmptyOrSpaces} from '../utils';
 
 const GameForm = ({consoleContext, consoleList, onSuccess}) => {
 

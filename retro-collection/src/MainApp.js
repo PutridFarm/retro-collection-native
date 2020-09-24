@@ -186,13 +186,12 @@ var styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: '#282c34',
-    padding: 5,
-    marginLeft: 5,
+    marginLeft: 10,
     borderRadius: 10,
     borderColor: '#4488c0',
     borderWidth: 2,
-    width: 50,
-    height: 50
+    width: 45,
+    height: 45
   },
   drawerIcon: {
     width: 50,

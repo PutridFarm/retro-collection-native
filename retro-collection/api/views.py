@@ -67,27 +67,46 @@ def delete_game():
 @main.route('/games/<consoleId>', methods=["GET"]) #entry point
 def games(consoleId):
 
+    gameId = request.args.get('id', type = int)
+    print("games[get] id = ", gameId)
     print("games[get] consoleId = ", consoleId)
+
     game_list = Game.query.filter_by(consoleId=consoleId) #return a SQLAlchemy object
     games = []
 
     for game in game_list:
-        games.append({'id' : game.id, 'title' : game.title, 'text' : game.text, 'consoleId' : game.consoleId, 'consoleName' : game.console.name})
+        games.append({'id' : game.id, 'title' : game.title, 'consoleId' : game.consoleId, 'consoleName' : game.console.name})
 
     return jsonify({'games' : games})
 
 #ExampleURL: /games/snes?game=1. Used as a heavy read to return more information
-@main.route('/games/<consoleId>/<gameTitle>', methods=["GET"]) #entry point
-def game(consoleId, gameTitle):
+@main.route('/game', methods=["GET"]) #entry point
+def game():
 
-    gameId = request.args.get('id', default = 0, type = int)
-    print("games[get] id = ", gameId)
-    game_record = Game.query.filter_by(id=gameId).first() #return a SQLAlchemy object
+    game_id = request.args.get('id', type = int)
+    print("game[get] id = ", game_id)
 
-    if game_record is not None:
-        return jsonify({'game' : {'id' : game_record.id, 'title' : game_record.title, 'consoleId' : game_record.consoleId, 'text' : game_record.text}})
+    if game_id is not None:
+        game_record = Game.query.filter_by(id=game_id).first() #return a SQLAlchemy object
+        if game_record is not None:
+            game_images = []
+
+            for game_image in game_record.images: 
+                game_images.append({'id' : game_image.id, 'path' : game_image.path})
+
+            return jsonify({'game' : 
+                                {'id' : game_record.id, 
+                                'title' : game_record.title, 
+                                'consoleId' : game_record.consoleId,
+                                'consoleName' : game_record.console.name,
+                                'text' : game_record.text,
+                                'images' : game_images
+                                }
+                                })
+        else:
+            return jsonify({'game' : {}})
     else:
-        return jsonify({'game' : {}})
+        return 'No game id specified', 404
 
 @main.route('/games/<consoleId>/current-price', methods=["GET"]) #entry point
 def currentPrice(consoleId):

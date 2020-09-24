@@ -7,7 +7,8 @@ import {
   View,
   TouchableHighlight,
   Modal,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import {getDatabaseURL, isEmptyOrSpaces} from '../utils';
 
@@ -45,26 +46,30 @@ const GameForm = ({consoleContext, consoleList, onSuccess}) => {
 
     async function sendAddGameRequest () {
       const game = {title, consoleId};
-      const response = await fetch(url + '/add_game', {
-        method: 'POST',
-        headers: {
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify(game)
-      })
-    
-      if (response.ok) {
-        console.log('response is ok from /add_game!');
-        onSuccess();
-        setModalVisible(false);
-      }
-      else {
-        Alert.alert(
-          'Error Adding Game',
-          'An error occured when attempting to add the game. Please try again later.',
-          [{ text: 'OK'}],
-          { cancelable: false }
-        );
+      try{
+        const response = await fetch(url + '/add_game', {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(game)
+        })
+      
+        if (response.ok) {
+          console.log('response is ok from /add_game!');
+          onSuccess();
+          setModalVisible(false);
+        }
+        else {
+          Alert.alert(
+            'Error Adding Game',
+            'An error occured when attempting to add the game. Please try again later.',
+            [{ text: 'OK'}],
+            { cancelable: false }
+          );
+        }
+      } catch(error) {
+        console.error(error);
       }
     }
 
@@ -74,7 +79,10 @@ const GameForm = ({consoleContext, consoleList, onSuccess}) => {
           style={styles.addButton}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={{color: '#FFF', fontSize: 22}}>+</Text>
+          <Image
+            source={require('../images/plus-icon.png')}
+            style={styles.addButton}
+          />
         </TouchableHighlight>
       );
     }
@@ -134,14 +142,9 @@ const GameForm = ({consoleContext, consoleList, onSuccess}) => {
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: '#111',
-    width: 44,
-    height: 44,
-    color: '#FFF',
-    borderRadius: 44,
-    borderWidth: 3,
-    borderColor: '#4488c0',
-    marginTop: 10,
+    width: 34,
+    height: 34,
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },

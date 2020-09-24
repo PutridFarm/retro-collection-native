@@ -45,7 +45,7 @@ export const Games = ({navigation}) => {
       navigation.navigate('GameDetails', {
         title: item.title,
         screen: 'GameScreen',
-        params: {gameContext: item},
+        gameContext: item,
       });
     };
 

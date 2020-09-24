@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View, StyleSheet, Modal,Text, TextInput, TouchableHighlight} from 'react-native';
+import {View, StyleSheet, Modal,Text, TextInput, TouchableHighlight, Alert} from 'react-native';
 //import '../css/GameForm.css';
 import ConsoleListDropdown from './ConsoleListDropdown';
 import {getDatabaseURL, isEmptyOrSpaces} from '../utils';

@@ -21,9 +21,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }, 
+    },
     "extra": {
       "databaseURL": "http://192.168.0.134:5000/"
-  }
+    }
   }
 }

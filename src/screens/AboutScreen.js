@@ -42,10 +42,8 @@ const AboutScreen = () => (
           <Text style={{color: '#CECECE',fontSize: 18, marginVertical: 10}}>
             If you would like to support the developement of Retro Collection, every little bit helps and is greatly appreciated, thank you so much for your support!
           </Text>
-            {/*<View style={{padding: 10, flexDirection: 'row', justifyContent: 'space-between'}}>*/}
             <Image style={styles.paypal} source={require('../images/paypal_donate.png')} alt="paypal_button"/>
             <Image style={styles.patreon} source={require('../images/patreon_fiery_coal_logo.png')} alt="patreon_button"/>
-              {/*<Image style={styles.image} source={require('../images/putrid_farm_logo.png')} alt="company_icon"/>*/}
         </View>
       </ScrollView>
     </SafeAreaView>

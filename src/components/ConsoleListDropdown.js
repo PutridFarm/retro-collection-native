@@ -12,11 +12,11 @@ const ConsoleListDropdown = ({consoleList, selectedValue, styles, onValueChange}
                 selectedValue={selectedValue}
                 >
                 {
-                consoleList.map(item => {
-                    return (
-                        <Picker.Item label={item.name} key={item.id} value={item.id} />
-                    )
-                })
+                    consoleList.map(item => {
+                        return (
+                            <Picker.Item label={item.name} key={item.id} value={item.id} />
+                        )
+                    })
                 }
             </Picker>
         </View>

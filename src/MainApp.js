@@ -1,7 +1,4 @@
 import React, { Component , useState} from 'react';
-import ReactDOM from 'react-dom';
-//import './css/index.css';
-//import * as serviceWorker from './serviceWorker';
 
 import GameScreen from './screens/GamesScreen';
 import HomeScreen from './screens/HomeScreen';

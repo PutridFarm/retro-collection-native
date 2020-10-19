@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {Text, View, TouchableHighlight, FlatList, StyleSheet, Image,RefreshControl} from "react-native";
+import {Text, View, FlatList, StyleSheet, Image,RefreshControl} from "react-native";
 import {getDatabaseURL} from '../utils';
-import GameList from '../components/GameList';
-import ConsoleListDropdown from "../components/ConsoleListDropdown";
 
 const SettingsScreen = () => {
   

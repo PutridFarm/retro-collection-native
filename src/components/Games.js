@@ -9,7 +9,6 @@ import GameForm from './GameForm';
 import GameList from "./GameList";
 import ConsoleListDropdown from './ConsoleListDropdown';
 import {getDatabaseURL} from '../utils';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();

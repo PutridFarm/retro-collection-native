@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, StyleSheet,SafeAreaView} from "react-native";
+import {StyleSheet,SafeAreaView} from "react-native";
 import GameDetails from '../components/GameDetails';
 
 const GameDetailsScreen = ({route, navigation}) => {
@@ -13,14 +13,5 @@ const GameDetailsScreen = ({route, navigation}) => {
     </SafeAreaView>
     )
 }
-
-var styles = StyleSheet.create({
-  textShadow:{
-    fontWeight: "bold",
-    textShadowColor:'#585858',
-    textShadowOffset:{width: 1, height: 1},
-    textShadowRadius:2,
-  }
-});
 
 export default GameDetailsScreen;

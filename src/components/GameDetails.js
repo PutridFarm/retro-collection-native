@@ -6,7 +6,6 @@ import {getDatabaseURL} from '../utils';
 const GameDetails = ({gameContext}) => {
   
   const [game, setGame] = useState(gameContext);
-  const [loading, isLoading] = useState(true);
   const [imagePath, setImagePath] = useState("");
   const exampleImageURI = Image.resolveAssetSource('../images/paypal_donate.png');
 
@@ -16,19 +15,6 @@ const GameDetails = ({gameContext}) => {
     readGameDetails();
     console.log("ExampleImageURI: " + exampleImageURI);
   }, [gameContext]);
- //"/games/" + item.consoleId.toLowerCase() + "/current-price?game=" + item.title
-  /*fetchPrice = (item) => {
-   fetch('/games/snes/current-price?game=' + item.title)
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      this.setState({ currentPrice: data.price});
-    })
-    .catch(error=>{
-      console.log(error)
-    })
-  }*/
 
   function readGameDetails() {
     fetch(url + "game?id=" + gameContext.id)
@@ -39,7 +25,6 @@ const GameDetails = ({gameContext}) => {
           setGame(data.game);
           setImagePath('../' + data.game.images[0].path);
           console.log("Image Path: " + '../' + data.game.images[0].path);
-          isLoading(false);
         })
       .catch(error=>{
         console.log(error)
